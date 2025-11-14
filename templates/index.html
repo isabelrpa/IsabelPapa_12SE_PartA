@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block head %}
+<header>
+    <h1>
+        <a href="/">TRIPTROVE</a>
+    </h1>
+    <nav>
+        <a href="/create">Add a Trip!</a>
+        <a href="#">Sort</a>
+    </nav>
+</header>
+{% endblock %}
+
+{% block body %}
+<div>
+    <h2>My Trips</h2>
+</div>
+<div class="trips-container">
+    {% for trip in trips %}
+   <div class="trip-card">
+    <a href="/trip/{{trip.trip_id}}">
+    <div class="trip-img">
+        {% if trip.trip_image %}
+            <img src="{{ url_for('static', filename=trip.trip_image) }}" alt="{{ trip.trip_location }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='nyc.jpeg') }}" alt="{{ trip.trip_location }}">
+        {% endif %}
+    </div>
+    </a>
+    <div class="trip-details">
+        <div class="trip-left">
+            <h1>{{trip.trip_location}}</h1>
+            <h2>{{trip.trip_start}} - {{trip.trip_end}}</h2>
+        </div>
+        <div class="trip-right">
+                <div class="rating">
+                    {% for star in range(1,6) %}
+                    {% if star <= trip.rating %}
+                    <span class="star filled">★</span>
+                    {% else %}
+                    <span class="star empty">★</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <menu class="hamburger-menu" data-trip-id="{{trip.trip_id}}">≡</menu>
+                <div class="popup-menu" id="popup-{{trip.trip_id}}">
+                    <h1>MANAGE YOUR TRIP</h1>
+                    <a href="/update/{{trip.trip_id}}" class="popup-option update-option"> → Edit</a>
+                    <a href="/delete/{{trip.trip_id}}" class="popup-option delete-option" onclick="return confirm('Are you sure you want to delete this trip?')"> → Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   {% endfor %}
+</div>
+
+<script>
+// Toggle popup menu when hamburger is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburgers = document.querySelectorAll('.hamburger-menu');
+    
+    hamburgers.forEach(function(hamburger) {
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const tripId = this.getAttribute('data-trip-id');
+            const popup = document.getElementById('popup-' + tripId);
+            
+            document.querySelectorAll('.popup-menu').forEach(function(p) {
+                if (p.id !== 'popup-' + tripId) {
+                    p.classList.remove('show');
+                }
+            });
+            
+            popup.classList.toggle('show');
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.hamburger-menu') && !e.target.closest('.popup-menu')) {
+            document.querySelectorAll('.popup-menu').forEach(function(popup) {
+                popup.classList.remove('show');
+            });
+        }
+    });
+});
+</script>
+
+{% endblock %}
+
+{% block footer %}
+<p>TRIPTROVE 2025</p>
+
+{% endblock %}

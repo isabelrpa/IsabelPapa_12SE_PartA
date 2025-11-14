@@ -1,0 +1,584 @@
+h1, h1 a {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    padding: 0;
+    padding-left: 1rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+}
+    
+h2 {font-family: 'Work Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding-left: 2rem;
+    }
+        
+    
+h3 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0.5rem 0.5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 10px;
+    display: inline-block;
+    }
+    
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(199, 203, 209);
+    padding: 0.2rem;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(199, 203, 209);
+    text-align: center;
+    padding: 0.001rem;
+    background-color: rgb(199, 203, 209);
+    margin-top: auto;
+}
+    
+nav a {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    text-decoration: none;
+    padding: 0.5rem 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    display: inline-block;
+    }
+    
+    
+p{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    margin-left: 1rem;
+}
+    
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+    
+nav {
+    display: flex;
+    gap: 1rem;
+}
+    
+.trips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem 2rem;
+    justify-content: center;
+}
+
+.trip-card {
+    width: 420px;
+    background-color: rgb(200, 200, 200);
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.trip-img {
+    width: 100%;
+    height: 210px;
+}
+    
+.trip-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+    
+.trip-card a {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+}
+    
+.trip-card h1 {
+    padding: 0;
+    margin: 0.2rem 0 0.2rem 0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 30px;
+    font-weight: lighter;
+    visibility: visible;
+    color: rgb(52, 91, 124);
+    text-transform: uppercase;
+}
+    
+.trip-card h2 {
+    padding: 0;
+    margin: 0.2rem 0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 12px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    visibility: visible;
+    opacity: 1;
+}
+    
+.trip-details {
+    height: 70px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.trip-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.trip-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    position: relative;
+    padding-right: 0rem;
+    margin-right: 0rem; 
+}
+
+.trip-details h3 {
+    padding: 0.25rem 0.25rem;
+    margin: 0 0 0.25rem 0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+
+/* UPDATED: Menu button in bottom right corner BELOW rating */
+.trip-details menu {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    color: rgb(147, 147, 147);
+    cursor: pointer;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    position: bottom;
+    bottom: 0.25rem;
+    right: 1rem;
+}
+
+.trip-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    position: relative;
+    padding-right: 0rem;
+    margin-right: 0rem;
+}
+
+.rating {
+    display: flex;
+    gap: 0.1rem;
+}
+
+.star {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.star.filled {
+    color: gold;
+}
+
+.star.empty {
+    color: rgb(180, 180, 180);
+}
+
+.pan {
+    width: 100%;
+    height: 40vh;
+}
+
+.pan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Trip Card Button Styles */
+
+.trip-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.trip-btn {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 1.5rem 2rem;
+    background-color: rgb(200, 200, 200);
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.trip-btn:hover {
+    background-color: rgb(180, 180, 180);
+}
+
+
+/* Add Trip Form Styles */
+
+.form-container {
+    max-width: 1200px;
+    margin: 2rem 4rem;
+    padding: 2rem 6rem;
+    background-color: rgb(240, 240, 240);
+    border-radius: 2px;
+}
+
+.form-container h2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+}
+
+.trip-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    padding: 0.75rem;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgb(100, 100, 100);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.submit-btn {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    background-color: rgb(100, 100, 100);
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: rgb(70, 70, 70);
+}
+
+.cancel-btn {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    background-color: transparent;
+    padding: 0.75rem 2rem;
+    border: 1px solid rgb(1, 1, 1);
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: rgba(1, 1, 1, 0.05);
+}
+
+
+
+/* Popup Menu Styles */
+.popup-menu {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    left: auto;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.916);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.popup-menu.show {
+    display: flex;
+}
+
+/* Popup menu heading - specific styling */
+.popup-menu h1 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.popup-menu .popup-option {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.popup-option.delete-option {
+    color: rgb(52, 91, 124);
+}
+
+.popup-option.delete-option:hover {
+    background-color: rgb(230, 240, 250);
+}
+
+
+
+/* Rating input styles for forms */
+.rating-input {
+    display: flex;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.star-input {
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.star-input:hover {
+    transform: scale(1.2);
+}
+
+.star-input.filled {
+    color: gold;
+}
+
+.star-input.empty {
+    color: rgb(180, 180, 180);
+}
+
+.error-message {
+    display: none;
+    color: rgb(200, 50, 50);
+    font-size: 14px;
+    margin-top: 0.25rem;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.char-count {
+    font-size: 14px;
+    color: rgb(100, 100, 100);
+    margin-top: 0.25rem;
+    text-align: right;
+    display: block;
+    font-family: 'Work Sans', sans-serif;
+}
+
+input[type="date"] {
+    cursor: pointer;
+}
+
+
+
+/* Journal Full Width Styles */
+.journal-full-container {
+    margin: 2rem 4rem;
+    padding: 2rem 0;
+    min-height: 70vh;
+    position: relative;
+}
+
+.journal-title {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 3rem 0;
+}
+
+.journal-entries-full {
+    margin-top: 2rem;
+}
+
+.journal-entry {
+    margin-bottom: 2rem;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.entry-date {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+}
+
+.entry-menu {
+    font-size: 18px;
+    color: rgb(147, 147, 147);
+    cursor: pointer;
+    letter-spacing: 0.2rem;
+    user-select: none;
+}
+
+.entry-menu:hover {
+    color: rgb(100, 100, 100);
+}
+
+.entry-text {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: rgb(1, 1, 1);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.entry-divider {
+    border: none;
+    border-top: 1px solid rgb(180, 180, 180);
+    margin: 2rem 0;
+}
+
+.back-btn {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.no-entries {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: rgb(100, 100, 100);
+    text-align: center;
+    margin: 4rem 0;
+}

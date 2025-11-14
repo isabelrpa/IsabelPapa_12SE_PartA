@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block head %}
+<header>
+    <h1>
+        <a href="/">TRIPTROVE</a>
+    </h1>
+    <nav>
+        <a href="/create">Add a Trip!</a>
+        <a href="#">Sort</a>
+    </nav>
+</header>
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h2>Add a Trip</h2>
+    
+    <form action="/create" method="POST" enctype="multipart/form-data" class="trip-form" id="createForm">
+        <div class="form-group">
+            <label for="trip-location">Trip Location:</label>
+            <input 
+                type="text" 
+                id="trip-location" 
+                name="trip_location" 
+                placeholder="e.g., Paris, France"
+                pattern="^[a-zA-Z\s,.-]+$"
+                title="Location should only contain letters, spaces, commas, periods, and hyphens"
+                required>
+            <span class="error-message" id="location-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="trip-start">Start Date:</label>
+            <input 
+                type="date" 
+                id="trip-start" 
+                name="trip_start" 
+                required>
+        </div>
+        
+        <div class="form-group">
+            <label for="trip-end">End Date:</label>
+            <input 
+                type="date" 
+                id="trip-end" 
+                name="trip_end" 
+                required>
+            <span class="error-message" id="date-error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label for="trip-description">Trip Description:</label>
+            <textarea 
+                id="trip-description" 
+                name="trip_description" 
+                rows="4"
+                maxlength="250"
+                placeholder="Describe your trip (max 250 characters)"></textarea>
+            <span class="char-count"><span id="char-count">0</span>/250</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="trip-image">Trip Image:</label>
+            <input 
+                type="file" 
+                id="trip-image" 
+                name="trip_image" 
+                accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
+                required>
+            <small style="color: #666;">Accepted formats: PNG, JPG, JPEG, GIF, WEBP (Max 16MB)</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="rating">Trip Rating:</label>
+            <div class="rating-input">
+                <input type="hidden" id="rating" name="rating" value="" required>
+                <span class="star-input empty" data-value="1">★</span>
+                <span class="star-input empty" data-value="2">★</span>
+                <span class="star-input empty" data-value="3">★</span>
+                <span class="star-input empty" data-value="4">★</span>
+                <span class="star-input empty" data-value="5">★</span>
+            </div>
+            <span class="error-message" id="rating-error"></span>
+        </div>
+        
+        <button type="submit" class="submit-btn">ADD TRIP</button>
+    </form>
+</div>
+
+<script>
+// Star rating functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.star-input');
+    const ratingInput = document.getElementById('rating');
+    
+    stars.forEach(function(star) {
+        star.addEventListener('click', function() {
+            const value = parseInt(this.getAttribute('data-value'));
+            ratingInput.value = value;
+            
+            // Update star display
+            stars.forEach(function(s) {
+                const starValue = parseInt(s.getAttribute('data-value'));
+                if (starValue <= value) {
+                    s.classList.remove('empty');
+                    s.classList.add('filled');
+                } else {
+                    s.classList.remove('filled');
+                    s.classList.add('empty');
+                }
+            });
+            
+            // Clear rating error
+            document.getElementById('rating-error').style.display = 'none';
+        });
+        
+        // Hover effect
+        star.addEventListener('mouseenter', function() {
+            const value = parseInt(this.getAttribute('data-value'));
+            stars.forEach(function(s) {
+                const starValue = parseInt(s.getAttribute('data-value'));
+                if (starValue <= value) {
+                    s.style.opacity = '1';
+                } else {
+                    s.style.opacity = '0.5';
+                }
+            });
+        });
+    });
+    
+    document.querySelector('.rating-input').addEventListener('mouseleave', function() {
+        stars.forEach(function(s) {
+            s.style.opacity = '1';
+        });
+    });
+    
+    // Character count for description
+    const descriptionTextarea = document.getElementById('trip-description');
+    const charCountSpan = document.getElementById('char-count');
+    
+    descriptionTextarea.addEventListener('input', function() {
+        charCountSpan.textContent = this.value.length;
+    });
+    
+    // Form validation
+    const form = document.getElementById('createForm');
+    form.addEventListener('submit', function(e) {
+        let isValid = true;
+        
+        // Validate dates
+        const startDate = new Date(document.getElementById('trip-start').value);
+        const endDate = new Date(document.getElementById('trip-end').value);
+        const dateError = document.getElementById('date-error');
+        
+        if (endDate < startDate) {
+            e.preventDefault();
+            dateError.textContent = 'End date must be after start date';
+            dateError.style.display = 'block';
+            isValid = false;
+        } else {
+            dateError.style.display = 'none';
+        }
+        
+        // Validate rating
+        const ratingError = document.getElementById('rating-error');
+        if (!ratingInput.value || ratingInput.value < 1) {
+            e.preventDefault();
+            ratingError.textContent = 'Please select a rating by clicking the stars';
+            ratingError.style.display = 'block';
+            isValid = false;
+        } else {
+            ratingError.style.display = 'none';
+        }
+        
+        if (!isValid) {
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block footer %}
+<p>TRIPTROVE 2025</p>
+{% endblock %}

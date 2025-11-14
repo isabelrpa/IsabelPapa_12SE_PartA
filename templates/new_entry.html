@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block head %}
+<header>
+    <h1>
+        <a href="/">TRIPTROVE</a>
+    </h1>
+    <nav>
+        <a href="/create">Add a Trip!</a>
+        <a href="#">Sort</a>
+    </nav>
+</header>
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h2>New Journal Entry</h2>
+    
+    <form method="POST" action="/journal/new/{{ trip_id }}" class="trip-form">
+        <div class="form-group">
+            <label for="entry-date">Date:</label>
+            <input type="date" id="entry-date" name="entry_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="journal-entry">JOURNAL ENTRY:</label>
+            <textarea 
+                id="journal-entry" 
+                name="journal_entry" 
+                rows="10"
+                maxlength="10000"
+                placeholder="Write your journal entry here (max 10000 characters)"
+                required></textarea>
+            <span class="char-count"><span id="char-count">0</span>/10000</span>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="submit-btn">Add Entry</button>
+            <a href="/journal/{{ trip_id }}" class="cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    const textarea = document.getElementById('journal-entry');
+    const charCount = document.getElementById('char-count');
+    
+    textarea.addEventListener('input', function() {
+        charCount.textContent = this.value.length;
+    });
+</script>
+
+{% endblock %}
+
+{% block footer %}
+<p>TRIPTROVE 2025</p>
+{% endblock %}

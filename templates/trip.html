@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block head %}
+<header>
+    <h1>
+        <a href="/">TRIPTROVE</a>
+    </h1>
+    <nav>
+        <a href="/create">Add a Trip!</a>
+        <a href="#">Sort</a>
+    </nav>
+</header>
+{% endblock %}
+
+{% block body %}
+<div>
+    <h2>{{trip.trip_location}}</h2>
+    <div>
+        <p>{{trip.trip_description}}</p>
+        <div class="pan">
+        {% if trip.trip_image %}
+            <img src="{{ url_for('static', filename=trip.trip_image) }}" alt="{{ trip.trip_location }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='nyc.jpeg') }}" alt="{{ trip.trip_location }}">
+        {% endif %}
+        </div>
+        <div class="trip-buttons">
+            <a href="/journal/{{trip.trip_id}}" class="trip-btn">JOURNAL</a>
+            <a href="/album/{{trip.trip_id}}" class="trip-btn">PHOTO ALBUM</a>
+            <a href="/spending/{{trip.trip_id}}" class="trip-btn">SPENDING LOG</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p>TRIPTROVE 2025</p>
+
+{% endblock %}
