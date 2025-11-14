@@ -1,5 +1,5 @@
 h1, h1 a {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 20px;
     font-weight: lighter;
     color: rgb(1,1,1);
@@ -11,7 +11,7 @@ h1, h1 a {
     text-decoration: none;
 }
     
-h2 {font-family: 'Work Sans', sans-serif;
+h2 {font-family: 'Nunito Sans', sans-serif;
     font-size: 50px;
     font-weight: normal;
     color: rgb(0, 0, 0);
@@ -20,7 +20,7 @@ h2 {font-family: 'Work Sans', sans-serif;
         
     
 h3 {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 20px;
     font-weight: normal;
     color: rgb(0, 0, 0);
@@ -50,7 +50,7 @@ footer {
 }
     
 nav a {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 15px;
     font-weight: lighter;
     color: rgb(1,1,1);
@@ -66,7 +66,7 @@ nav a {
     
     
 p{
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 20px;
     font-weight: lighter;
     color: rgb(1,1,1);
@@ -84,6 +84,7 @@ body {
 nav {
     display: flex;
     gap: 1rem;
+    position: relative;
 }
     
 .trips-container {
@@ -127,7 +128,7 @@ nav {
 .trip-card h1 {
     padding: 0;
     margin: 0.2rem 0 0.2rem 0;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 30px;
     font-weight: lighter;
     visibility: visible;
@@ -138,7 +139,7 @@ nav {
 .trip-card h2 {
     padding: 0;
     margin: 0.2rem 0;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 12px;
     font-weight: lighter;
     color: rgb(1,1,1);
@@ -173,7 +174,7 @@ nav {
 .trip-details h3 {
     padding: 0.25rem 0.25rem;
     margin: 0 0 0.25rem 0;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 12px;
     font-weight: normal;
     color: rgb(0, 0, 0);
@@ -247,7 +248,7 @@ nav {
 }
 
 .trip-btn {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: normal;
     color: rgb(1, 1, 1);
@@ -276,7 +277,7 @@ nav {
 }
 
 .form-container h2 {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 32px;
     font-weight: normal;
     color: rgb(1, 1, 1);
@@ -297,7 +298,7 @@ nav {
 }
 
 .form-group label {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: normal;
     color: rgb(1, 1, 1);
@@ -306,7 +307,7 @@ nav {
 .form-group input,
 .form-group textarea {
     width: 100%;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 14px;
     padding: 0.75rem;
     border: 1px solid rgb(180, 180, 180);
@@ -332,7 +333,7 @@ nav {
 }
 
 .submit-btn {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: normal;
     color: white;
@@ -349,7 +350,7 @@ nav {
 }
 
 .cancel-btn {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: normal;
     color: rgb(1, 1, 1);
@@ -394,7 +395,7 @@ nav {
 
 /* Popup menu heading - specific styling */
 .popup-menu h1 {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 14px;
     font-weight: normal;
     color: rgb(100, 100, 100);
@@ -408,7 +409,7 @@ nav {
 }
 
 .popup-menu .popup-option {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 12px;
     font-weight: normal;
     color: rgb(1, 1, 1);
@@ -432,6 +433,65 @@ nav {
 
 .popup-option.delete-option:hover {
     background-color: rgb(230, 240, 250);
+}
+
+
+.sort-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    bottom: auto; /* Override the .popup-menu bottom positioning */
+    left: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.sort-popup.show {
+    display: flex;
+}
+
+/* Make sure sort popup h1 matches the manage trip popup styling */
+.sort-popup h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+/* Make sure sort popup options match the manage trip popup styling */
+.sort-popup .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.sort-popup .popup-option:hover {
+    background-color: rgb(240, 240, 240);
 }
 
 
@@ -466,7 +526,7 @@ nav {
     color: rgb(200, 50, 50);
     font-size: 14px;
     margin-top: 0.25rem;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .char-count {
@@ -475,7 +535,7 @@ nav {
     margin-top: 0.25rem;
     text-align: right;
     display: block;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 input[type="date"] {
@@ -493,7 +553,7 @@ input[type="date"] {
 }
 
 .journal-title {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 50px;
     font-weight: normal;
     color: rgb(0, 0, 0);
@@ -517,7 +577,7 @@ input[type="date"] {
 }
 
 .entry-date {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 20px;
     font-weight: normal;
     color: rgb(0, 0, 0);
@@ -538,7 +598,7 @@ input[type="date"] {
 }
 
 .entry-text {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: lighter;
     color: rgb(1, 1, 1);
@@ -557,7 +617,7 @@ input[type="date"] {
     position: absolute;
     bottom: 2rem;
     left: 0;
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 15px;
     font-weight: lighter;
     color: rgb(1, 1, 1);
@@ -575,7 +635,7 @@ input[type="date"] {
 }
 
 .no-entries {
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: lighter;
     color: rgb(100, 100, 100);

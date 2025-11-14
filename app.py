@@ -21,12 +21,32 @@ def allowed_file(filename):
     
 @app.route('/')
 def index():
+    # Get sort parameter from URL
+    sort_by = request.args.get('sort', 'id_desc')  # Default to most recent
+    
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM Trips')
+    
+    # Determine SQL ORDER BY clause based on sort parameter
+    if sort_by == 'date_asc':
+        order_clause = 'ORDER BY trip_start ASC'
+    elif sort_by == 'date_desc':
+        order_clause = 'ORDER BY trip_start DESC'
+    elif sort_by == 'id_asc':
+        order_clause = 'ORDER BY trip_id ASC'
+    elif sort_by == 'id_desc':
+        order_clause = 'ORDER BY trip_id DESC'
+    elif sort_by == 'location_asc':
+        order_clause = 'ORDER BY trip_location COLLATE NOCASE ASC'
+    else:
+        order_clause = 'ORDER BY trip_id DESC'  # Default
+    
+    query = f'SELECT * FROM Trips {order_clause}'
+    cursor.execute(query)
     all_trips = cursor.fetchall()
     conn.close()
+    
     return render_template('index.html', trips=all_trips)
 
 @app.route('/create', methods=['POST', 'GET'])

@@ -7,7 +7,16 @@
     </h1>
     <nav>
         <a href="/create">Add a Trip!</a>
-        <a href="#">Sort</a>
+        <a href="#" class="sort-btn">Sort ⇅</a>
+        <!-- Sort popup menu -->
+        <div class="popup-menu sort-popup" id="sort-popup">
+            <h1>SORT TRIPS BY</h1>
+            <a href="/?sort=date_asc" class="popup-option">→ Date (Oldest First)</a>
+            <a href="/?sort=date_desc" class="popup-option">→ Date (Newest First)</a>
+            <a href="/?sort=id_asc" class="popup-option">→ Least Recently Added</a>
+            <a href="/?sort=id_desc" class="popup-option">→ Most Recently Added</a>
+            <a href="/?sort=location_asc" class="popup-option">→ Location (A-Z)</a>
+        </div>
     </nav>
 </header>
 {% endblock %}
@@ -66,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const tripId = this.getAttribute('data-trip-id');
             const popup = document.getElementById('popup-' + tripId);
             
+            // Close all popups including sort popup
             document.querySelectorAll('.popup-menu').forEach(function(p) {
                 if (p.id !== 'popup-' + tripId) {
                     p.classList.remove('show');
@@ -76,8 +86,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Sort button functionality
+    const sortBtn = document.querySelector('.sort-btn');
+    const sortPopup = document.getElementById('sort-popup');
+    
+    sortBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Close all trip popups
+        document.querySelectorAll('.popup-menu').forEach(function(p) {
+            if (p.id !== 'sort-popup') {
+                p.classList.remove('show');
+            }
+        });
+        
+        sortPopup.classList.toggle('show');
+    });
+
+    // Close all popups when clicking outside
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.hamburger-menu') && !e.target.closest('.popup-menu')) {
+        if (!e.target.closest('.hamburger-menu') && 
+            !e.target.closest('.popup-menu') && 
+            !e.target.closest('.sort-btn')) {
             document.querySelectorAll('.popup-menu').forEach(function(popup) {
                 popup.classList.remove('show');
             });
@@ -90,5 +121,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% block footer %}
 <p>TRIPTROVE 2025</p>
-
 {% endblock %}
