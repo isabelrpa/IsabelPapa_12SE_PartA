@@ -1,3 +1,5 @@
+/* Base Typography */
+
 h1, h1 a {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 20px;
@@ -30,7 +32,35 @@ h3 {
     border-radius: 10px;
     display: inline-block;
     }
-    
+
+p{
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    margin-left: 1rem;
+}
+
+
+
+
+
+/* Layout */
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+/* Header & Navigation */
+
 header {
     display: flex;
     justify-content: space-between;
@@ -38,15 +68,11 @@ header {
     background-color: rgb(199, 203, 209);
     padding: 0.2rem;
 }
-
-footer {
+    
+nav {
     display: flex;
-    justify-content: space-between;
-    background-color: rgb(199, 203, 209);
-    text-align: center;
-    padding: 0.001rem;
-    background-color: rgb(199, 203, 209);
-    margin-top: auto;
+    gap: 1rem;
+    position: relative;
 }
     
 nav a {
@@ -63,29 +89,46 @@ nav a {
     border-radius: 25px;
     display: inline-block;
     }
-    
-    
-p{
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 20px;
-    font-weight: lighter;
-    color: rgb(1,1,1);
-    margin-left: 1rem;
-}
-    
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+
+
+
+
+
+/* Footer */
+
+footer {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(199, 203, 209);
+    text-align: center;
+    padding: 0.001rem;
+    background-color: rgb(199, 203, 209);
+    margin-top: auto;
 }
-    
-nav {
-    display: flex;
-    gap: 1rem;
-    position: relative;
+
+
+
+
+
+/* Panoramic Image */
+
+.pan {
+    width: 100%;
+    height: 40vh;
 }
+
+.pan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+
+
+/* Trip Cards */
     
 .trips-container {
     display: flex;
@@ -182,8 +225,6 @@ nav {
     display: inline-block;
 }
 
-
-/* UPDATED: Menu button in bottom right corner BELOW rating */
 .trip-details menu {
     margin: 0;
     padding: 0;
@@ -197,16 +238,6 @@ nav {
     position: bottom;
     bottom: 0.25rem;
     right: 1rem;
-}
-
-.trip-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.25rem;
-    position: relative;
-    padding-right: 0rem;
-    margin-right: 0rem;
 }
 
 .rating {
@@ -226,20 +257,6 @@ nav {
 .star.empty {
     color: rgb(180, 180, 180);
 }
-
-.pan {
-    width: 100%;
-    height: 40vh;
-}
-
-.pan img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Trip Card Button Styles */
 
 .trip-buttons {
     display: flex;
@@ -266,7 +283,10 @@ nav {
 }
 
 
-/* Add Trip Form Styles */
+
+
+
+/* Forms */
 
 .form-container {
     max-width: 1200px;
@@ -326,6 +346,10 @@ nav {
     resize: vertical;
 }
 
+input[type="date"] {
+    cursor: pointer;
+}
+
 .form-buttons {
     display: flex;
     gap: 1rem;
@@ -369,134 +393,6 @@ nav {
     background-color: rgba(1, 1, 1, 0.05);
 }
 
-
-
-/* Popup Menu Styles */
-.popup-menu {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    left: auto;
-    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
-    background-color: rgba(255, 255, 255, 0.916);
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    flex-direction: column;
-    min-width: 150px;
-    z-index: 1000;
-    padding: 0.5rem 0;
-}
-
-.popup-menu.show {
-    display: flex;
-}
-
-/* Popup menu heading - specific styling */
-.popup-menu h1 {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
-    font-weight: normal;
-    color: rgb(100, 100, 100);
-    padding: 1rem 1.5rem 0.5rem 1.5rem;
-    margin: 0;
-    border: none;
-    background-color: transparent;
-    border-radius: 0;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-}
-
-.popup-menu .popup-option {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 12px;
-    font-weight: normal;
-    color: rgb(1, 1, 1);
-    text-decoration: none;
-    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
-    border: none;
-    border-radius: 0;
-    background-color: transparent;
-    display: block;
-    text-align: left;
-    transition: background-color 0.2s;
-}
-
-.popup-option:hover {
-    background-color: rgb(240, 240, 240);
-}
-
-.popup-option.delete-option {
-    color: rgb(52, 91, 124);
-}
-
-.popup-option.delete-option:hover {
-    background-color: rgb(230, 240, 250);
-}
-
-
-.sort-popup {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    bottom: auto; /* Override the .popup-menu bottom positioning */
-    left: auto;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    flex-direction: column;
-    min-width: 200px;
-    z-index: 1000;
-    padding: 0.5rem 0;
-}
-
-.sort-popup.show {
-    display: flex;
-}
-
-/* Make sure sort popup h1 matches the manage trip popup styling */
-.sort-popup h1 {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
-    font-weight: normal;
-    color: rgb(100, 100, 100);
-    padding: 1rem 1.5rem 0.5rem 1.5rem;
-    margin: 0;
-    border: none;
-    background-color: transparent;
-    border-radius: 0;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-}
-
-/* Make sure sort popup options match the manage trip popup styling */
-.sort-popup .popup-option {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 12px;
-    font-weight: normal;
-    color: rgb(1, 1, 1);
-    text-decoration: none;
-    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
-    border: none;
-    border-radius: 0;
-    background-color: transparent;
-    display: block;
-    text-align: left;
-    transition: background-color 0.2s;
-}
-
-.sort-popup .popup-option:hover {
-    background-color: rgb(240, 240, 240);
-}
-
-
-
-/* Rating input styles for forms */
 .rating-input {
     display: flex;
     gap: 0.3rem;
@@ -538,13 +434,136 @@ nav {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-input[type="date"] {
-    cursor: pointer;
+
+
+
+
+/* Popup Menus */
+
+.popup-menu {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    left: auto;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.916);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.popup-menu.show {
+    display: flex;
+}
+
+.popup-menu h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.popup-menu .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.popup-option.delete-option {
+    color: rgb(52, 91, 124);
+}
+
+.popup-option.delete-option:hover {
+    background-color: rgb(230, 240, 250);
+}
+
+.sort-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.sort-popup.show {
+    display: flex;
+}
+
+.sort-popup h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.sort-popup .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.sort-popup .popup-option:hover {
+    background-color: rgb(240, 240, 240);
 }
 
 
 
-/* Journal Full Width Styles */
+
+
+/* Journal */
+
 .journal-full-container {
     margin: 2rem 4rem;
     padding: 2rem 0;
@@ -611,27 +630,6 @@ input[type="date"] {
     border: none;
     border-top: 1px solid rgb(180, 180, 180);
     margin: 2rem 0;
-}
-
-.back-btn {
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 15px;
-    font-weight: lighter;
-    color: rgb(1, 1, 1);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border: 1px solid rgb(255, 255, 255);
-    background-color: rgb(255, 255, 255);
-    border-radius: 25px;
-    display: inline-block;
-    transition: background-color 0.3s;
-}
-
-.back-btn:hover {
-    background-color: rgb(230, 230, 230);
 }
 
 .no-entries {

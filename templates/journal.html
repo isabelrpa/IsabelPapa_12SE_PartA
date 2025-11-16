@@ -7,7 +7,15 @@
     </h1>
     <nav>
         <a href="/journal/add/{{ trip_id }}" class="new-entry-btn">New Entry</a>
-        <a href="#" class="sort-btn">Sort</a>
+        <a href="#" class="sort-btn">Sort ⇅</a>
+        <!-- Sort popup menu -->
+        <div class="popup-menu sort-popup" id="sort-popup">
+            <h1>SORT ENTRIES BY</h1>
+            <a href="/journal/{{ trip_id }}?sort=date_asc" class="popup-option">→ Date (Oldest First)</a>
+            <a href="/journal/{{ trip_id }}?sort=date_desc" class="popup-option">→ Date (Newest First)</a>
+            <a href="/journal/{{ trip_id }}?sort=id_asc" class="popup-option">→ Least Recently Added</a>
+            <a href="/journal/{{ trip_id }}?sort=id_desc" class="popup-option">→ Most Recently Added</a>
+        </div>
     </nav>
 </header>
 {% endblock %}
@@ -41,12 +49,10 @@
     {% else %}
     <p class="no-entries">No journal entries yet. Click "New Entry" to add one!</p>
     {% endif %}
-    
-    <a href="/trip/{{ trip_id }}" class="back-btn">← Back</a>
 </div>
 
 <script>
-// Toggle popup menu when entry menu is clicked
+// Toggle popup menu when entry menu is clicked (JAVASCRIPT ENHANCEMENT)
 document.addEventListener('DOMContentLoaded', function() {
     const entryMenus = document.querySelectorAll('.entry-menu');
     
@@ -71,6 +77,60 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.entry-menu') && !e.target.closest('.popup-menu')) {
             document.querySelectorAll('.entry-popup').forEach(function(popup) {
+                popup.classList.remove('show');
+            });
+        }
+    });
+});
+</script>
+
+<script>
+// Toggle sort popup menu (JAVASCRIPT ENHANCEMENT)
+document.addEventListener('DOMContentLoaded', function() {
+    const sortBtn = document.querySelector('.sort-btn');
+    const sortPopup = document.getElementById('sort-popup');
+    
+    if (sortBtn && sortPopup) {
+        sortBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            sortPopup.classList.toggle('show');
+        });
+        
+        // Close sort popup when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.sort-btn') && !e.target.closest('.sort-popup')) {
+                sortPopup.classList.remove('show');
+            }
+        });
+    }
+    
+    // Toggle entry menu popups
+    const entryMenus = document.querySelectorAll('.entry-menu');
+    
+    entryMenus.forEach(function(menu) {
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const entryId = this.getAttribute('data-entry-id');
+            const popup = document.getElementById('entry-popup-' + entryId);
+            
+            // Close all other popups including sort popup
+            document.querySelectorAll('.popup-menu').forEach(function(p) {
+                if (p.id !== 'entry-popup-' + entryId) {
+                    p.classList.remove('show');
+                }
+            });
+            
+            popup.classList.toggle('show');
+        });
+    });
+
+    // Close all popups when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.entry-menu') && 
+            !e.target.closest('.sort-btn') && 
+            !e.target.closest('.popup-menu')) {
+            document.querySelectorAll('.popup-menu').forEach(function(popup) {
                 popup.classList.remove('show');
             });
         }
