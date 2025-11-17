@@ -15,7 +15,7 @@
 <div class="form-container">
     <h2>New Journal Entry</h2>
     
-    <form method="POST" action="/journal/new/{{ trip_id }}" class="trip-form">
+    <form method="POST" action="/journal/{{ trip_id }}" class="trip-form">
         <div class="form-group">
             <label for="entry-date">Date:</label>
             <input type="date" id="entry-date" name="entry_date" required>

@@ -60,7 +60,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(199, 203, 209);
+    background-color: rgba(46, 116, 170, 0.667);
     padding: 0.2rem;
 }
     
@@ -90,7 +90,7 @@ nav a {
 footer {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(199, 203, 209);
+    background-color: rgba(46, 116, 170, 0.667);
     text-align: center;
     padding: 0.001rem;
     margin-top: auto;

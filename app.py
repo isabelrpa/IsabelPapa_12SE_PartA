@@ -231,6 +231,7 @@ def delete(trip_id):
 @app.route('/journal/<int:trip_id>', methods=['GET', 'POST'])
 def journal(trip_id):
     conn = sqlite3.connect('part_a.db')
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
     if request.method == 'POST':
@@ -247,20 +248,34 @@ def journal(trip_id):
         
         return redirect(url_for('journal', trip_id=trip_id))
     
+    # Get sort parameter
+    sort_by = request.args.get('sort', 'date_desc')
+    
+    # Determine sort order
+    if sort_by == 'date_asc':
+        order_clause = 'ORDER BY entry_date ASC'
+    elif sort_by == 'date_desc':
+        order_clause = 'ORDER BY entry_date DESC'
+    elif sort_by == 'id_asc':
+        order_clause = 'ORDER BY journal_id ASC'
+    elif sort_by == 'id_desc':
+        order_clause = 'ORDER BY journal_id DESC'
+    else:
+        order_clause = 'ORDER BY entry_date DESC'
+    
     # Get trip details
     cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
     trip = cursor.fetchone()
     
-    # Get journal entries
-    cursor.execute(
-        'SELECT entry_date, journal_entry FROM Journal WHERE trip_id = ? ORDER BY entry_date DESC',
-        (trip_id,)
-    )
+    # Get journal entries with sort
+    query = f'SELECT entry_date, journal_entry, journal_id FROM Journal WHERE trip_id = ? {order_clause}'
+    cursor.execute(query, (trip_id,))
     entries = cursor.fetchall()
     
     conn.close()
 
     return render_template('journal.html', entries=entries, trip=trip, trip_id=trip_id)
+
 
 
 
@@ -304,22 +319,26 @@ def update_journal_entry(entry_id):
         cursor.execute('''
             UPDATE Journal 
             SET entry_date = ?, journal_entry = ?
-            WHERE entry_id = ?
+            WHERE journal_id = ?
         ''', (entry_date, journal_entry, entry_id))
         
         conn.commit()
+        conn.close()
         
-        # Get trip_id for redirect
-        cursor.execute('SELECT trip_id FROM Journal WHERE entry_id = ?', (entry_id,))
+        # Return success for AJAX requests
+        if request.headers.get('Content-Type') == 'application/x-www-form-urlencoded':
+            return '', 200
+        
+        # Get trip_id for redirect (if not AJAX)
+        cursor.execute('SELECT trip_id FROM Journal WHERE journal_id = ?', (entry_id,))
         result = cursor.fetchone()
         trip_id = result['trip_id']
-        conn.close()
         
         return redirect(url_for('journal', trip_id=trip_id))
     
     else:
-        # Get existing entry data
-        cursor.execute('SELECT * FROM Journal WHERE entry_id = ?', (entry_id,))
+        # GET request - render form (keep this for fallback)
+        cursor.execute('SELECT * FROM Journal WHERE journal_id = ?', (entry_id,))
         entry = cursor.fetchone()
         conn.close()
         
@@ -337,12 +356,12 @@ def delete_journal_entry(entry_id):
     cursor = conn.cursor()
     
     # Get trip_id before deleting
-    cursor.execute('SELECT trip_id FROM Journal WHERE entry_id = ?', (entry_id,))
+    cursor.execute('SELECT trip_id FROM Journal WHERE journal_id = ?', (entry_id,))
     result = cursor.fetchone()
     trip_id = result[0]
     
     # Delete entry
-    cursor.execute('DELETE FROM Journal WHERE entry_id = ?', (entry_id,))
+    cursor.execute('DELETE FROM Journal WHERE journal_id = ?', (entry_id,))
     conn.commit()
     conn.close()
     
