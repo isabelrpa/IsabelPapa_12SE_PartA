@@ -353,22 +353,142 @@ def delete_journal_entry(entry_id):
 # VIEW PHOTO ALBUM FOR TRIP
 @app.route('/album/<int:trip_id>')
 def album(trip_id):
-    
-    # Get trip details
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
+    # Get trip details
     cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
     trip = cursor.fetchone()
+    
+    # Get ALL photos for this trip, ordered by most recent first (NO LIMIT)
+    cursor.execute('''
+        SELECT * FROM Album 
+        WHERE trip_id = ? 
+        ORDER BY date_added DESC
+    ''', (trip_id,))
+    photos = cursor.fetchall()
+    
     conn.close()
     
     if trip is None:
         return "Trip not found", 404
     
-    return render_template('album.html', trip=trip, trip_id=trip_id)
+    return render_template('album.html', trip=trip, trip_id=trip_id, photos=photos)
 
 
+# UPLOAD PHOTO TO ALBUM
+@app.route('/album/<int:trip_id>/upload', methods=['POST'])
+def upload_photo(trip_id):
+    if 'photo' not in request.files:
+        return "No file uploaded", 400
+    
+    file = request.files['photo']
+    
+    if file.filename == '':
+        return "No file selected", 400
+    
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filename = f"{int(time.time())}_{filename}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        photo_path = f"uploads/{filename}"
+        
+        # Get current date
+        from datetime import datetime
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        
+        # Insert into Album table
+        conn = sqlite3.connect('part_a.db')
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO Album (photo_path, photo_alt, trip_id, date_added)
+            VALUES (?, ?, ?, ?)
+        ''', (photo_path, 'Uploaded photo', trip_id, current_date))
+        conn.commit()
+        conn.close()
+        
+        return redirect(url_for('album', trip_id=trip_id))
+    else:
+        return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+
+
+# UPDATE PHOTO IN ALBUM
+@app.route('/album/update/<int:photo_id>', methods=['GET', 'POST'])
+def update_photo(photo_id):
+    conn = sqlite3.connect('part_a.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        # Handle photo replacement
+        if 'photo' not in request.files or request.files['photo'].filename == '':
+            conn.close()
+            return "No file selected", 400
+        
+        file = request.files['photo']
+        
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filename = f"{int(time.time())}_{filename}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            photo_path = f"uploads/{filename}"
+            
+            # Get current date
+            from datetime import datetime
+            current_date = datetime.now().strftime('%Y-%m-%d')
+            
+            # Update database
+            cursor.execute('''
+                UPDATE Album 
+                SET photo_path = ?, date_added = ?
+                WHERE photo_id = ?
+            ''', (photo_path, current_date, photo_id))
+            
+            conn.commit()
+            
+            # Get trip_id for redirect
+            cursor.execute('SELECT trip_id FROM Album WHERE photo_id = ?', (photo_id,))
+            result = cursor.fetchone()
+            trip_id = result['trip_id']
+            conn.close()
+            
+            return redirect(url_for('album', trip_id=trip_id))
+        else:
+            conn.close()
+            return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+    
+    else:
+        # Get existing photo data
+        cursor.execute('SELECT * FROM Album WHERE photo_id = ?', (photo_id,))
+        photo = cursor.fetchone()
+        conn.close()
+        
+        if photo is None:
+            return "Photo not found", 404
+        
+        return render_template('update_photo.html', photo=photo)
+
+
+# DELETE PHOTO FROM ALBUM
+@app.route('/album/delete/<int:photo_id>')
+def delete_photo(photo_id):
+    conn = sqlite3.connect('part_a.db')
+    cursor = conn.cursor()
+    
+    # Get trip_id before deleting
+    cursor.execute('SELECT trip_id FROM Album WHERE photo_id = ?', (photo_id,))
+    result = cursor.fetchone()
+    trip_id = result[0]
+    
+    # Delete photo
+    cursor.execute('DELETE FROM Album WHERE photo_id = ?', (photo_id,))
+    conn.commit()
+    conn.close()
+    
+    return redirect(url_for('album', trip_id=trip_id))
 
 # VIEW SPENDING PAGE FOR TRIP
 @app.route('/spending/<int:trip_id>')

@@ -1,198 +1,801 @@
-/* Add these responsive rules to your existing CSS */
+/* Base Typography */
 
-/* Mobile-first responsive design */
+h1, h1 a {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    padding: 0;
+    padding-left: 1rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+}
+    
+h2 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding-left: 2rem;
+}
+        
+h3 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0.5rem 0.5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+p {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgb(60, 60, 60);
+    margin-left: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+}
+
+/* Layout */
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Navigation */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(199, 203, 209);
+    padding: 0.2rem;
+}
+    
+nav {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+}
+    
+nav a {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    text-decoration: none;
+    padding: 0.5rem 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    display: inline-block;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(199, 203, 209);
+    text-align: center;
+    padding: 0.001rem;
+    margin-top: auto;
+}
+
+/* Panoramic Image */
+
+.pan {
+    width: 100%;
+    height: 40vh;
+}
+
+.pan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Trip Cards */
+    
+.trips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem 2rem;
+    justify-content: center;
+}
+
+.trip-card {
+    width: 420px;
+    background-color: rgb(200, 200, 200);
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.trip-img {
+    width: 100%;
+    height: 210px;
+}
+    
+.trip-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+    
+.trip-card a {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+}
+    
+.trip-card h1 {
+    padding: 0;
+    margin: 0.2rem 0 0.2rem 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 30px;
+    font-weight: lighter;
+    visibility: visible;
+    color: rgb(52, 91, 124);
+    text-transform: uppercase;
+}
+    
+.trip-card h2 {
+    padding: 0;
+    margin: 0.2rem 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: lighter;
+    color: rgb(1,1,1);
+    visibility: visible;
+    opacity: 1;
+}
+    
+.trip-details {
+    height: 70px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.trip-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.trip-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    position: relative;
+    padding-right: 0rem;
+    margin-right: 0rem; 
+}
+
+.trip-details h3 {
+    padding: 0.25rem 0.25rem;
+    margin: 0 0 0.25rem 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.trip-details menu {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    color: rgb(147, 147, 147);
+    cursor: pointer;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    position: bottom;
+    bottom: 0.25rem;
+    right: 1rem;
+}
+
+.rating {
+    display: flex;
+    gap: 0.1rem;
+}
+
+.star {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.star.filled {
+    color: gold;
+}
+
+.star.empty {
+    color: rgb(180, 180, 180);
+}
+
+.trip-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.trip-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 1.5rem 2rem;
+    background-color: rgb(200, 200, 200);
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.trip-btn:hover {
+    background-color: rgb(180, 180, 180);
+}
+
+/* Forms */
+
+.form-container {
+    max-width: 1200px;
+    margin: 2rem 4rem;
+    padding: 2rem 6rem;
+    background-color: rgb(240, 240, 240);
+    border-radius: 2px;
+}
+
+.form-container h2 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+}
+
+.trip-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    padding: 0.75rem;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgb(100, 100, 100);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+input[type="date"] {
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.submit-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    background-color: rgb(100, 100, 100);
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: rgb(70, 70, 70);
+}
+
+.cancel-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    background-color: transparent;
+    padding: 0.75rem 2rem;
+    border: 1px solid rgb(1, 1, 1);
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: rgba(1, 1, 1, 0.05);
+}
+
+.rating-input {
+    display: flex;
+    gap: 0.3rem;
+    cursor: pointer;
+}
+
+.star-input {
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.star-input:hover {
+    transform: scale(1.2);
+}
+
+.star-input.filled {
+    color: gold;
+}
+
+.star-input.empty {
+    color: rgb(180, 180, 180);
+}
+
+.error-message {
+    display: none;
+    color: rgb(200, 50, 50);
+    font-size: 14px;
+    margin-top: 0.25rem;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.char-count {
+    font-size: 14px;
+    color: rgb(100, 100, 100);
+    margin-top: 0.25rem;
+    text-align: right;
+    display: block;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Popup Menus */
+
+.popup-menu {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    left: auto;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.916);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.popup-menu.show {
+    display: flex;
+}
+
+.popup-menu h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.popup-menu .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.popup-option.delete-option {
+    color: rgb(52, 91, 124);
+}
+
+.popup-option.delete-option:hover {
+    background-color: rgb(230, 240, 250);
+}
+
+.sort-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+.sort-popup.show {
+    display: flex;
+}
+
+.sort-popup h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.sort-popup .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+.sort-popup .popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+/* Journal */
+
+.journal-full-container {
+    margin: 2rem 4rem;
+    padding: 2rem 0;
+    min-height: 70vh;
+    position: relative;
+}
+
+.journal-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 3rem 0;
+}
+
+.journal-entries-full {
+    margin-top: 2rem;
+}
+
+.journal-entry {
+    margin-bottom: 2rem;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.entry-date {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+}
+
+.entry-menu {
+    font-size: 18px;
+    color: rgb(147, 147, 147);
+    cursor: pointer;
+    letter-spacing: 0.2rem;
+    user-select: none;
+}
+
+.entry-menu:hover {
+    color: rgb(100, 100, 100);
+}
+
+.entry-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: rgb(1, 1, 1);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.entry-divider {
+    border: none;
+    border-top: 1px solid rgb(180, 180, 180);
+    margin: 2rem 0;
+}
+
+.no-entries {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: rgb(100, 100, 100);
+    text-align: center;
+    margin: 4rem 0;
+}
+
+/* Photo Album */
+
+.album-container {
+    margin: 2rem 4rem;
+    padding: 0;
+}
+
+.album-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: rgb(240, 240, 240);
+}
+
+.album-item {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: white;
+}
+
+.album-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(220, 220, 220);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-box:hover {
+    background-color: rgb(200, 200, 200);
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: rgb(100, 100, 100);
+    margin-bottom: 1rem;
+}
+
+.upload-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+}
+
+.album-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.album-item:hover .album-caption {
+    opacity: 1;
+}
+
+.album-caption h3 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.photo-menu {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    padding: 0.5rem;
+    user-select: none;
+}
+
+.photo-menu:hover {
+    color: rgb(200, 200, 200);
+}
+
+.photo-popup {
+    position: absolute;
+    top: 3rem;
+    right: 0.5rem;
+    left: auto;
+    bottom: auto;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+/* Mobile Responsive Styles */
+
 @media screen and (max-width: 768px) {
-    
-    /* Typography adjustments */
-    h1, h1 a {
-        font-size: 16px;
-        padding-left: 0.5rem;
-    }
-    
-    h2 {
-        font-size: 32px;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    
-    h3 {
-        font-size: 16px;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-    
-    p {
-        font-size: 16px;
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-    }
-    
-    /* Header navigation */
-    header {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.5rem;
-    }
-    
-    nav {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    nav a {
-        font-size: 14px;
-        padding: 0.5rem 1rem;
-    }
-    
-    /* Footer */
-    footer {
-        flex-direction: column;
-        padding: 0.5rem;
-    }
-    
-    /* Panoramic image */
-    .pan {
-        height: 30vh;
-    }
-    
-    /* Trip buttons - stack vertically on mobile */
+    /* Trip buttons */
     .trip-buttons {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.5rem;
         margin-top: 1rem;
         padding: 0 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .trip-btn {
         font-size: 14px;
-        padding: 1rem 1.5rem;
+        padding: 0.75rem 1rem;
         width: 100%;
         box-sizing: border-box;
     }
     
-    /* Trip cards */
-    .trips-container {
-        padding: 1rem;
-        gap: 1rem;
+    body > div {
+        padding-bottom: 1rem;
     }
     
-    .trip-card {
-        width: 100%;
-        max-width: 420px;
-    }
-    
-    .trip-img {
-        height: 180px;
-    }
-    
-    .trip-card h1 {
-        font-size: 24px;
-    }
-    
-    .trip-details {
-        height: auto;
-        min-height: 70px;
-        padding: 0.5rem;
-    }
-    
-    /* Forms */
-    .form-container {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-    
-    .form-container h2 {
-        font-size: 24px;
-    }
-    
-    .form-group label {
-        font-size: 14px;
-    }
-    
-    .form-group input,
-    .form-group textarea {
-        font-size: 14px;
-        padding: 0.5rem;
-    }
-    
-    .form-buttons {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .submit-btn,
-    .cancel-btn {
-        width: 100%;
-        text-align: center;
-        padding: 0.75rem;
-    }
-    
-    /* Popup menus */
-    .popup-menu {
-        min-width: 120px;
-        right: 0.25rem;
-    }
-    
-    .sort-popup {
-        min-width: 150px;
-    }
-    
-    /* Journal */
-    .journal-full-container {
-        margin: 1rem;
-        padding: 1rem 0;
-    }
-    
-    .journal-title {
-        font-size: 32px;
-        margin-bottom: 2rem;
-    }
-    
-    .entry-date {
-        font-size: 16px;
-    }
-    
-    .entry-text {
-        font-size: 14px;
-    }
-}
-
-/* Small mobile devices */
-@media screen and (max-width: 480px) {
     h2 {
-        font-size: 28px;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        font-size: 36px;
+        padding-left: 1rem;
     }
     
-    .trip-btn {
-        font-size: 13px;
-        padding: 0.875rem 1rem;
+    p {
+        font-size: 16px;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
     
-    .form-container {
-        padding: 1rem;
+    .pan {
+        height: 25vh;
+        margin-bottom: 0.5rem;
     }
     
-    .journal-title {
-        font-size: 28px;
+    /* Album responsive */
+    .album-container {
+        margin: 1rem;
     }
     
-    nav a {
-        font-size: 13px;
-        padding: 0.4rem 0.8rem;
+    .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .album-title {
+        font-size: 36px;
+        margin: 0 0 1rem 0;
     }
 }
 
-/* Ensure touch targets are accessible on mobile */
 @media (hover: none) and (pointer: coarse) {
-    .trip-btn,
-    nav a,
-    .submit-btn,
-    .cancel-btn {
+    .trip-btn {
         min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 }

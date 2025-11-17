@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block head %}
+<header>
+    <h1>
+        <a href="/">TRIPTROVE</a>
+    </h1>
+    <nav>
+        <a href="/album/{{photo.trip_id}}">Back to Album</a>
+    </nav>
+</header>
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h2>Replace Photo</h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <p style="margin-bottom: 1rem;">Current Photo:</p>
+        <img src="{{ url_for('static', filename=photo.photo_path) }}" 
+             alt="Current photo" 
+             style="max-width: 400px; border: 1px solid rgb(180, 180, 180);">
+    </div>
+    
+    <form method="POST" action="/album/update/{{ photo.photo_id }}" enctype="multipart/form-data" class="trip-form">
+        <div class="form-group">
+            <label for="photo">Select New Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="submit-btn">Replace Photo</button>
+            <a href="/album/{{photo.trip_id}}" class="cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<p>TRIPTROVE 2025</p>
+{% endblock %}

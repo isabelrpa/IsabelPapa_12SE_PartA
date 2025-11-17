@@ -13,36 +13,74 @@
 {% endblock %}
 
 {% block body %}
-<div>
-    <h2>{{trip.trip_location}} Photo Album</h2>
-</div>
-
-{% if trip.trip_image %}
 <div class="album-container">
-    <div class="album-photo">
-        <img src="{{ url_for('static', filename=trip.trip_image) }}" alt="{{ trip.trip_location }}">
-        <div class="album-caption">
-            <h3>{{trip.trip_location}}</h3>
+    <h2 class="album-title">{{trip.trip_location}} Photo Album</h2>
+    
+    <div class="album-grid">
+        <!-- Upload Box (First Position) -->
+        <div class="album-item upload-box" onclick="document.getElementById('photo-upload').click()">
+            <div class="upload-icon">+</div>
+            <div class="upload-text">Add New Photo</div>
+            <form id="upload-form" action="/album/{{trip_id}}/upload" method="POST" enctype="multipart/form-data" style="display: none;">
+                <input type="file" id="photo-upload" name="photo" accept="image/*" onchange="document.getElementById('upload-form').submit()">
+            </form>
         </div>
+        
+        <!-- Display Photos -->
+        {% for photo in photos %}
+        <div class="album-item">
+            <img src="{{ url_for('static', filename=photo.photo_path) }}" alt="{{photo.photo_alt}}">
+            
+            <!-- Photo Menu (three dots) -->
+            <div style="position: relative;">
+                <span class="photo-menu" data-photo-id="{{ photo.photo_id }}">•••</span>
+                <div class="popup-menu photo-popup" id="photo-popup-{{ photo.photo_id }}">
+                    <h1>MANAGE PHOTO</h1>
+                    <a href="/album/update/{{ photo.photo_id }}" class="popup-option"> → Replace</a>
+                    <a href="/album/delete/{{ photo.photo_id }}" class="popup-option delete-option" onclick="return confirm('Are you sure you want to delete this photo?')"> → Delete</a>
+                </div>
+            </div>
+            
+            <div class="album-caption">
+                <h3>{{trip.trip_location}}</h3>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
-{% else %}
-<div style="text-align: center; padding: 4rem 2rem;">
-    <p style="font-size: 18px; color: rgb(100, 100, 100); margin-bottom: 2rem;">
-        No photos yet for this trip!
-    </p>
-    <a href="/update/{{trip_id}}" style="
-        font-family: 'Nunito Sans', sans-serif;
-        font-size: 16px;
-        color: white;
-        background-color: rgb(100, 100, 100);
-        padding: 0.75rem 2rem;
-        border-radius: 25px;
-        text-decoration: none;
-        display: inline-block;
-    ">Add a Photo</a>
-</div>
-{% endif %}
+
+<script>
+// Toggle photo menu popup
+document.addEventListener('DOMContentLoaded', function() {
+    const photoMenus = document.querySelectorAll('.photo-menu');
+    
+    photoMenus.forEach(function(menu) {
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const photoId = this.getAttribute('data-photo-id');
+            const popup = document.getElementById('photo-popup-' + photoId);
+            
+            // Close all other popups
+            document.querySelectorAll('.photo-popup').forEach(function(p) {
+                if (p.id !== 'photo-popup-' + photoId) {
+                    p.classList.remove('show');
+                }
+            });
+            
+            popup.classList.toggle('show');
+        });
+    });
+
+    // Close popup when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.photo-menu') && !e.target.closest('.photo-popup')) {
+            document.querySelectorAll('.photo-popup').forEach(function(popup) {
+                popup.classList.remove('show');
+            });
+        }
+    });
+});
+</script>
 
 {% endblock %}
 
