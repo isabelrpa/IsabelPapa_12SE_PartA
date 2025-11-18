@@ -13,9 +13,8 @@
             <h1>SORT ENTRIES BY</h1>
             <a href="/journal/{{ trip_id }}?sort=date_asc" class="popup-option">→ Date (Oldest First)</a>
             <a href="/journal/{{ trip_id }}?sort=date_desc" class="popup-option">→ Date (Newest First)</a>
-            <a href="/journal/{{ trip_id }}?sort=id_asc" class="popup-option">→ Least Recently Added</a>
-            <a href="/journal/{{ trip_id }}?sort=id_desc" class="popup-option">→ Most Recently Added</a>
         </div>
+        <a href="/trip/{{trip_id}}">Back to Trip</a>
     </nav>
 </header>
 {% endblock %}
@@ -30,7 +29,7 @@
         <div class="journal-entry" data-entry-id="{{ entry[2] }}">
             <div class="entry-header">
                 <!-- View mode date -->
-                <h3 class="entry-date view-mode">{{ entry[0] }}</h3>
+                <div class="entry-date view-mode">{{ entry[0] }}</div>
                 <!-- Edit mode date -->
                 <input type="date" class="entry-date-input edit-mode" value="{{ entry[0] }}" style="display: none;">
                 

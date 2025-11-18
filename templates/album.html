@@ -27,18 +27,11 @@
         
         <!-- Display Photos -->
         {% for photo in photos %}
-        <div class="album-item">
+        <div class="album-item" data-photo-id="{{ photo.photo_id }}">
             <img src="{{ url_for('static', filename=photo.photo_path) }}" alt="{{photo.photo_alt}}">
             
-            <!-- Photo Menu (three dots) -->
-            <div style="position: relative;">
-                <span class="photo-menu" data-photo-id="{{ photo.photo_id }}">•••</span>
-                <div class="popup-menu photo-popup" id="photo-popup-{{ photo.photo_id }}">
-                    <h1>MANAGE PHOTO</h1>
-                    <a href="/album/update/{{ photo.photo_id }}" class="popup-option"> → Replace</a>
-                    <a href="/album/delete/{{ photo.photo_id }}" class="popup-option delete-option" onclick="return confirm('Are you sure you want to delete this photo?')"> → Delete</a>
-                </div>
-            </div>
+            <!-- Photo Menu (appears on hover) -->
+            <span class="photo-menu" data-photo-id="{{ photo.photo_id }}">≡</span>
             
             <div class="album-caption">
                 <h3>{{trip.trip_location}}</h3>
@@ -48,35 +41,56 @@
     </div>
 </div>
 
+<!-- Popup menu (outside grid, positioned absolutely) -->
+<div class="popup-menu photo-popup" id="photo-popup" style="display: none;">
+    <h1>MANAGE PHOTO</h1>
+    <a href="#" class="popup-option replace-option" id="replace-link"> → Replace</a>
+    <a href="#" class="popup-option delete-option" id="delete-link"> → Delete</a>
+</div>
+
 <script>
 // Toggle photo menu popup
 document.addEventListener('DOMContentLoaded', function() {
     const photoMenus = document.querySelectorAll('.photo-menu');
+    const popup = document.getElementById('photo-popup');
+    const replaceLink = document.getElementById('replace-link');
+    const deleteLink = document.getElementById('delete-link');
+    let currentPhotoId = null;
     
     photoMenus.forEach(function(menu) {
         menu.addEventListener('click', function(e) {
             e.stopPropagation();
+            e.preventDefault();
+            
             const photoId = this.getAttribute('data-photo-id');
-            const popup = document.getElementById('photo-popup-' + photoId);
+            currentPhotoId = photoId;
             
-            // Close all other popups
-            document.querySelectorAll('.photo-popup').forEach(function(p) {
-                if (p.id !== 'photo-popup-' + photoId) {
-                    p.classList.remove('show');
-                }
-            });
+            // Position popup near the clicked menu
+            const rect = this.getBoundingClientRect();
+            popup.style.position = 'fixed';
+            popup.style.top = (rect.bottom + 5) + 'px';
+            popup.style.left = (rect.left - 100) + 'px';
+            popup.style.display = 'flex';
             
-            popup.classList.toggle('show');
+            // Update links
+            replaceLink.href = '/album/update/' + photoId;
+            deleteLink.href = '/album/delete/' + photoId;
+            deleteLink.onclick = function() {
+                return confirm('Are you sure you want to delete this photo?');
+            };
         });
     });
 
     // Close popup when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.photo-menu') && !e.target.closest('.photo-popup')) {
-            document.querySelectorAll('.photo-popup').forEach(function(popup) {
-                popup.classList.remove('show');
-            });
+            popup.style.display = 'none';
         }
+    });
+    
+    // Prevent popup from closing when clicking inside it
+    popup.addEventListener('click', function(e) {
+        e.stopPropagation();
     });
 });
 </script>

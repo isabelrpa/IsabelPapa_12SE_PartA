@@ -256,10 +256,6 @@ def journal(trip_id):
         order_clause = 'ORDER BY entry_date ASC'
     elif sort_by == 'date_desc':
         order_clause = 'ORDER BY entry_date DESC'
-    elif sort_by == 'id_asc':
-        order_clause = 'ORDER BY journal_id ASC'
-    elif sort_by == 'id_desc':
-        order_clause = 'ORDER BY journal_id DESC'
     else:
         order_clause = 'ORDER BY entry_date DESC'
     

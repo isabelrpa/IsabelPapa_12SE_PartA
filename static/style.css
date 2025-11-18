@@ -799,3 +799,343 @@ input[type="date"] {
         min-height: 44px;
     }
 }
+
+
+/* Inline Editing Styles for Journal */
+
+.entry-date-input {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: white;
+    margin: 0;
+}
+
+.entry-text-input {
+    width: 100%;
+    min-height: 200px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    font-style: italic;
+    color: rgb(1, 1, 1);
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    resize: vertical;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+.entry-text-input:focus {
+    outline: none;
+    border-color: rgb(52, 91, 124);
+    background-color: rgba(52, 91, 124, 0.02);
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.save-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    background-color: rgb(52, 91, 124);
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    background-color: rgb(40, 70, 95);
+}
+
+.cancel-edit-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    background-color: transparent;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid rgb(1, 1, 1);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-edit-btn:hover {
+    background-color: rgba(1, 1, 1, 0.05);
+}
+
+
+
+
+/* Photo Album Menu - Hover Only */
+
+.album-item {
+    position: relative;
+}
+
+.photo-menu {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    z-index: 100;
+    padding: 0.25rem 0.5rem;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    line-height: 1;
+}
+
+.album-item:hover .photo-menu {
+    opacity: 1;
+}
+
+.photo-menu:hover {
+    color: rgb(220, 220, 220);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+}
+
+.photo-popup {
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    max-width: 140px;
+    z-index: 10000;
+    padding: 0.5rem 0;
+}
+
+.photo-popup h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 0.5rem 1rem 0.25rem 1rem;
+    margin: 0;
+    letter-spacing: 0.05em;
+}
+
+.photo-popup .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.photo-popup .popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.photo-popup .delete-option {
+    color: rgb(52, 91, 124);
+}
+
+.photo-popup .delete-option:hover {
+    background-color: rgb(230, 240, 250);
+}
+
+
+
+
+
+/* Mobile Responsive Styles - Enhanced Form Support */
+
+@media screen and (max-width: 768px) {
+    /* Form Container */
+    .form-container {
+        margin: 1rem;
+        padding: 1.5rem 1rem;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .form-container h2 {
+        font-size: 28px;
+        margin: 0 0 1.5rem 0;
+        padding: 0;
+    }
+    
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+    
+    .form-group label {
+        font-size: 15px;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    /* Form Inputs */
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="file"],
+    .form-group textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.75rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    /* Date inputs on mobile */
+    input[type="date"] {
+        -webkit-appearance: none;
+        appearance: none;
+        min-height: 44px; /* Touch-friendly size */
+    }
+    
+    /* File upload */
+    .form-group input[type="file"] {
+        font-size: 14px;
+        padding: 0.5rem;
+    }
+    
+    .form-group small {
+        font-size: 12px;
+        display: block;
+        margin-top: 0.5rem;
+        line-height: 1.4;
+    }
+    
+    /* Star Rating - Mobile Friendly */
+    .rating-input {
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 0.5rem 0;
+    }
+    
+    .star-input {
+        font-size: 40px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Character Count */
+    .char-count {
+        font-size: 13px;
+        margin-top: 0.5rem;
+    }
+    
+    /* Form Buttons */
+    .form-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+    
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+        font-size: 15px;
+        min-height: 44px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    
+    /* Error Messages */
+    .error-message {
+        font-size: 13px;
+        margin-top: 0.5rem;
+    }
+    
+    /* Header Navigation - Mobile */
+    header {
+        padding: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    nav {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+    
+    nav a {
+        font-size: 14px;
+        padding: 0.5rem 1rem;
+    }
+    
+    /* Image preview on mobile */
+    .form-group img {
+        max-width: 100% !important;
+        height: auto;
+    }
+}
+
+/* Extra small devices (phones in portrait) */
+@media screen and (max-width: 480px) {
+    .form-container {
+        margin: 0.5rem;
+        padding: 1rem 0.75rem;
+    }
+    
+    .form-container h2 {
+        font-size: 24px;
+        margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+        font-size: 14px;
+    }
+    
+    .star-input {
+        font-size: 36px;
+        gap: 0.25rem;
+    }
+    
+    .submit-btn,
+    .cancel-btn {
+        font-size: 14px;
+    }
+}
+
+/* Ensure touch-friendly sizes on all touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .form-group input,
+    .form-group textarea,
+    .form-group select,
+    .submit-btn,
+    .cancel-btn {
+        min-height: 44px;
+    }
+    
+    .star-input {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
