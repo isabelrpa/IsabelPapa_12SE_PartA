@@ -7,13 +7,15 @@
     </h1>
     <nav>
         <a href="/trip/{{trip_id}}">Back to Trip</a>
+        <a href="/logout">Logout</a>
     </nav>
 </header>
 {% endblock %}
 
 {% block body %}
 <div class="album-container">
-    <h2 class="album-title">{{trip.trip_location}} Photo Album</h2>
+    <h1 class="album-location-title">{{trip.trip_location|upper}}</h1>
+    <h2 class="album-subtitle">Photo Album</h2>
     
     <div class="album-grid">
         <!-- Upload Box (First Position) -->

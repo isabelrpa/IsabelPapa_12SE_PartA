@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import time
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key='ISA12_SE'
@@ -19,11 +21,124 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# AUTHENTICATION ROUTES
+
+# LOGIN PAGE
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        conn = sqlite3.connect('part_a.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        cursor.execute('SELECT * FROM Users WHERE username = ?', (username,))
+        user = cursor.fetchone()
+        conn.close()
+        
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['user_id']
+            session['username'] = user['username']
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    
+    return render_template('login.html')
+
+# REGISTER PAGE
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if password != confirm_password:
+            return render_template('login.html', error='Passwords do not match', show_register=True)
+        
+        hashed_password = generate_password_hash(password)
+        
+        conn = sqlite3.connect('part_a.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute('INSERT INTO Users (username, password) VALUES (?, ?)',
+                         (username, hashed_password))
+            conn.commit()
+            
+            # Get the new user's ID
+            user_id = cursor.lastrowid
+            
+            # COPY STARTER TRIPS FROM USER_ID 1 TO NEW USER
+            cursor.execute('''
+                INSERT INTO Trips (trip_location, trip_start, trip_end, trip_image, trip_description, rating, user_id)
+                SELECT trip_location, trip_start, trip_end, trip_image, trip_description, rating, ?
+                FROM Trips
+                WHERE user_id = 1
+            ''', (user_id,))
+            
+            # Copy journal entries for the new trips
+            cursor.execute('SELECT trip_id FROM Trips WHERE user_id = ? ORDER BY trip_id', (user_id,))
+            new_trip_ids = [row[0] for row in cursor.fetchall()]
+            
+            cursor.execute('SELECT trip_id FROM Trips WHERE user_id = 1 ORDER BY trip_id')
+            old_trip_ids = [row[0] for row in cursor.fetchall()]
+            
+            # Copy journal entries
+            for old_id, new_id in zip(old_trip_ids, new_trip_ids):
+                cursor.execute('''
+                    INSERT INTO Journal (entry_date, journal_entry, trip_id)
+                    SELECT entry_date, journal_entry, ?
+                    FROM Journal
+                    WHERE trip_id = ?
+                ''', (new_id, old_id))
+            
+            # Copy album photos
+            for old_id, new_id in zip(old_trip_ids, new_trip_ids):
+                cursor.execute('''
+                    INSERT INTO Album (photo_path, photo_alt, trip_id, date_added)
+                    SELECT photo_path, photo_alt, ?, date_added
+                    FROM Album
+                    WHERE trip_id = ?
+                ''', (new_id, old_id))
+            
+            conn.commit()
+            conn.close()
+            
+            # Log them in automatically
+            session['user_id'] = user_id
+            session['username'] = username
+            
+            return redirect(url_for('index'))
+        except sqlite3.IntegrityError:
+            conn.close()
+            return render_template('login.html', error='Username already exists', show_register=True)
+    
+    return render_template('login.html', show_register=True)
+
+# LOGOUT
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 # ROUTES
 
 # HOME PAGE (DISPLAY ALL TRIPS)
 @app.route('/')
+@login_required
 def index():
     # Get sort parameter
     sort_by = request.args.get('sort', 'id_desc')
@@ -47,9 +162,9 @@ def index():
     else:
         order_clause = 'ORDER BY trip_id DESC'
     
-    # Fetch trips
-    query = f'SELECT * FROM Trips {order_clause}'
-    cursor.execute(query)
+    # Fetch trips for logged-in user only
+    query = f'SELECT * FROM Trips WHERE user_id = ? {order_clause}'
+    cursor.execute(query, (session['user_id'],))
     all_trips = cursor.fetchall()
     conn.close()
     
@@ -59,12 +174,13 @@ def index():
 
 # VIEW INDIVIDUAL TRIP DETAILS
 @app.route('/trip/<int:trip_id>')
+@login_required
 def trip(trip_id):
     # Get trip details
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
+    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
     trip = cursor.fetchone()
     conn.close()
     
@@ -77,6 +193,7 @@ def trip(trip_id):
 
 # CREATE (NEW) TRIP
 @app.route('/create', methods=['POST', 'GET'])
+@login_required
 def create():
     if request.method == 'POST':
         # Get trip form data
@@ -103,14 +220,14 @@ def create():
         else:
             return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
 
-        # Insert into database
+        # Insert into database with user_id
         conn = sqlite3.connect('part_a.db')
         cursor = conn.cursor()
 
         cursor.execute('''
-        INSERT INTO Trips (trip_location, trip_start, trip_end, trip_image, trip_description, rating)
-        VALUES (?, ?, ?, ?, ?, ?)
-        ''', (trip_location, trip_start, trip_end, trip_image, trip_description, rating))
+        INSERT INTO Trips (trip_location, trip_start, trip_end, trip_image, trip_description, rating, user_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', (trip_location, trip_start, trip_end, trip_image, trip_description, rating, session['user_id']))
         conn.commit()
         conn.close()
         
@@ -122,6 +239,7 @@ def create():
 
 # UPDATE (EXISTING) TRIP
 @app.route('/update/<int:trip_id>', methods=['POST','GET'])
+@login_required
 def update(trip_id):
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
@@ -182,7 +300,7 @@ def update(trip_id):
                 return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
         else:
             # Keep existing image
-            cursor.execute('SELECT trip_image FROM Trips WHERE trip_id = ?', (trip_id,))
+            cursor.execute('SELECT trip_image FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
             result = cursor.fetchone()
             trip_image = result['trip_image'] if result else None
 
@@ -195,8 +313,8 @@ def update(trip_id):
                 trip_image = ?,
                 trip_description = ?,
                 rating = ?
-            WHERE trip_id = ?
-        ''', (trip_location, trip_start, trip_end, trip_image, trip_description, rating, trip_id))
+            WHERE trip_id = ? AND user_id = ?
+        ''', (trip_location, trip_start, trip_end, trip_image, trip_description, rating, trip_id, session['user_id']))
 
         conn.commit()
         conn.close()
@@ -204,7 +322,7 @@ def update(trip_id):
     
     else:
         # Get existing trip data
-        cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
+        cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
         trip = cursor.fetchone()
         conn.close()
 
@@ -217,10 +335,11 @@ def update(trip_id):
 
 # DELETE TRIP
 @app.route('/delete/<int:trip_id>')
+@login_required
 def delete(trip_id):
     conn = sqlite3.connect('part_a.db')
     cursor = conn.cursor()
-    cursor.execute('DELETE FROM Trips WHERE trip_id=?', (trip_id,))
+    cursor.execute('DELETE FROM Trips WHERE trip_id=? AND user_id=?', (trip_id, session['user_id']))
     conn.commit()
     conn.close()
     return redirect(url_for('index'))
@@ -229,10 +348,19 @@ def delete(trip_id):
 
 # VIEW JOURNAL ENTRIES FOR TRIP
 @app.route('/journal/<int:trip_id>', methods=['GET', 'POST'])
+@login_required
 def journal(trip_id):
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    
+    # Verify trip belongs to user
+    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
+    trip = cursor.fetchone()
+    
+    if trip is None:
+        conn.close()
+        return "Trip not found", 404
     
     if request.method == 'POST':
         # Add new journal entry
@@ -259,10 +387,6 @@ def journal(trip_id):
     else:
         order_clause = 'ORDER BY entry_date DESC'
     
-    # Get trip details
-    cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
-    trip = cursor.fetchone()
-    
     # Get journal entries with sort
     query = f'SELECT entry_date, journal_entry, journal_id FROM Journal WHERE trip_id = ? {order_clause}'
     cursor.execute(query, (trip_id,))
@@ -277,7 +401,19 @@ def journal(trip_id):
 
 # CREATE (NEW) JOURNAL ENTRY
 @app.route('/journal/add/<int:trip_id>', methods=['GET', 'POST'])
+@login_required
 def new_entry(trip_id):
+    # Verify trip belongs to user
+    conn = sqlite3.connect('part_a.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
+    trip = cursor.fetchone()
+    conn.close()
+    
+    if trip is None:
+        return "Trip not found", 404
+    
     if request.method == 'POST':
         # Get form data
         entry_date = request.form.get('entry_date')
@@ -301,10 +437,24 @@ def new_entry(trip_id):
 
 # UPDATE (EXISTING) JOURNAL ENTRY
 @app.route('/journal/update/<int:entry_id>', methods=['GET', 'POST'])
+@login_required
 def update_journal_entry(entry_id):
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    
+    # Verify entry belongs to user's trip
+    cursor.execute('''
+        SELECT Journal.*, Trips.user_id 
+        FROM Journal 
+        JOIN Trips ON Journal.trip_id = Trips.trip_id 
+        WHERE Journal.journal_id = ?
+    ''', (entry_id,))
+    entry = cursor.fetchone()
+    
+    if entry is None or entry['user_id'] != session['user_id']:
+        conn.close()
+        return "Journal entry not found", 404
     
     if request.method == 'POST':
         # Get form data
@@ -326,16 +476,12 @@ def update_journal_entry(entry_id):
             return '', 200
         
         # Get trip_id for redirect (if not AJAX)
-        cursor.execute('SELECT trip_id FROM Journal WHERE journal_id = ?', (entry_id,))
-        result = cursor.fetchone()
-        trip_id = result['trip_id']
+        trip_id = entry['trip_id']
         
         return redirect(url_for('journal', trip_id=trip_id))
     
     else:
         # GET request - render form (keep this for fallback)
-        cursor.execute('SELECT * FROM Journal WHERE journal_id = ?', (entry_id,))
-        entry = cursor.fetchone()
         conn.close()
         
         if entry is None:
@@ -347,13 +493,24 @@ def update_journal_entry(entry_id):
 
 # DELETE JOURNAL ENTRY
 @app.route('/journal/delete/<int:entry_id>')
+@login_required
 def delete_journal_entry(entry_id):
     conn = sqlite3.connect('part_a.db')
     cursor = conn.cursor()
     
-    # Get trip_id before deleting
-    cursor.execute('SELECT trip_id FROM Journal WHERE journal_id = ?', (entry_id,))
+    # Get trip_id and verify ownership before deleting
+    cursor.execute('''
+        SELECT Journal.trip_id, Trips.user_id 
+        FROM Journal 
+        JOIN Trips ON Journal.trip_id = Trips.trip_id 
+        WHERE Journal.journal_id = ?
+    ''', (entry_id,))
     result = cursor.fetchone()
+    
+    if result is None or result[1] != session['user_id']:
+        conn.close()
+        return "Journal entry not found", 404
+    
     trip_id = result[0]
     
     # Delete entry
@@ -367,14 +524,19 @@ def delete_journal_entry(entry_id):
 
 # VIEW PHOTO ALBUM FOR TRIP
 @app.route('/album/<int:trip_id>')
+@login_required
 def album(trip_id):
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    # Get trip details
-    cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
+    # Get trip details and verify ownership
+    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
     trip = cursor.fetchone()
+    
+    if trip is None:
+        conn.close()
+        return "Trip not found", 404
     
     # Get ALL photos for this trip, ordered by most recent first (NO LIMIT)
     cursor.execute('''
@@ -386,15 +548,23 @@ def album(trip_id):
     
     conn.close()
     
-    if trip is None:
-        return "Trip not found", 404
-    
     return render_template('album.html', trip=trip, trip_id=trip_id, photos=photos)
 
 
 # UPLOAD PHOTO TO ALBUM
 @app.route('/album/<int:trip_id>/upload', methods=['POST'])
+@login_required
 def upload_photo(trip_id):
+    # Verify trip ownership
+    conn = sqlite3.connect('part_a.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
+    trip = cursor.fetchone()
+    conn.close()
+    
+    if trip is None:
+        return "Trip not found", 404
+    
     if 'photo' not in request.files:
         return "No file uploaded", 400
     
@@ -431,10 +601,24 @@ def upload_photo(trip_id):
 
 # UPDATE PHOTO IN ALBUM
 @app.route('/album/update/<int:photo_id>', methods=['GET', 'POST'])
+@login_required
 def update_photo(photo_id):
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    
+    # Verify photo belongs to user's trip
+    cursor.execute('''
+        SELECT Album.*, Trips.user_id 
+        FROM Album 
+        JOIN Trips ON Album.trip_id = Trips.trip_id 
+        WHERE Album.photo_id = ?
+    ''', (photo_id,))
+    photo = cursor.fetchone()
+    
+    if photo is None or photo['user_id'] != session['user_id']:
+        conn.close()
+        return "Photo not found", 404
     
     if request.method == 'POST':
         # Handle photo replacement
@@ -464,10 +648,7 @@ def update_photo(photo_id):
             
             conn.commit()
             
-            # Get trip_id for redirect
-            cursor.execute('SELECT trip_id FROM Album WHERE photo_id = ?', (photo_id,))
-            result = cursor.fetchone()
-            trip_id = result['trip_id']
+            trip_id = photo['trip_id']
             conn.close()
             
             return redirect(url_for('album', trip_id=trip_id))
@@ -476,26 +657,32 @@ def update_photo(photo_id):
             return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
     
     else:
-        # Get existing photo data
-        cursor.execute('SELECT * FROM Album WHERE photo_id = ?', (photo_id,))
-        photo = cursor.fetchone()
+        # GET request
         conn.close()
-        
-        if photo is None:
-            return "Photo not found", 404
         
         return render_template('update_photo.html', photo=photo)
 
 
 # DELETE PHOTO FROM ALBUM
 @app.route('/album/delete/<int:photo_id>')
+@login_required
 def delete_photo(photo_id):
     conn = sqlite3.connect('part_a.db')
     cursor = conn.cursor()
     
-    # Get trip_id before deleting
-    cursor.execute('SELECT trip_id FROM Album WHERE photo_id = ?', (photo_id,))
+    # Verify ownership and get trip_id before deleting
+    cursor.execute('''
+        SELECT Album.trip_id, Trips.user_id 
+        FROM Album 
+        JOIN Trips ON Album.trip_id = Trips.trip_id 
+        WHERE Album.photo_id = ?
+    ''', (photo_id,))
     result = cursor.fetchone()
+    
+    if result is None or result[1] != session['user_id']:
+        conn.close()
+        return "Photo not found", 404
+    
     trip_id = result[0]
     
     # Delete photo
@@ -507,14 +694,14 @@ def delete_photo(photo_id):
 
 # VIEW SPENDING PAGE FOR TRIP
 @app.route('/spending/<int:trip_id>')
+@login_required
 def spending(trip_id):
-
-    # Get trip details
+    # Get trip details and verify ownership
     conn = sqlite3.connect('part_a.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    cursor.execute('SELECT * FROM Trips WHERE trip_id = ?', (trip_id,))
+    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
     trip = cursor.fetchone()
     conn.close()
     
@@ -525,4 +712,3 @@ def spending(trip_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
-    

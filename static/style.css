@@ -1139,3 +1139,230 @@ input[type="date"] {
         min-height: 44px;
     }
 }
+
+
+
+/* Album Page Headers */
+
+.album-location-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(52, 91, 124);
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.album-subtitle {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+/* Mobile Responsive for Album Headers */
+@media screen and (max-width: 768px) {
+    .album-location-title {
+        font-size: 36px;
+        margin: 0 0 0.5rem 0;
+    }
+    
+    .album-subtitle {
+        font-size: 24px;
+        margin: 0 0 1.5rem 0;
+    }
+}
+
+
+
+
+
+
+
+/* Login Page Styles */
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("images/login-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.login-box {
+    position: relative;
+    z-index: 1;
+    background: white;
+    padding: 3rem 4rem;
+    border-radius: 2px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 100%;
+    margin: 2rem;
+}
+
+.login-logo {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: rgb(52, 91, 124);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgb(60, 60, 60);
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.login-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.login-form-group label {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+}
+
+.login-form-group input {
+    width: 100%;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    padding: 0.875rem;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.login-form-group input:focus {
+    outline: none;
+    border-color: rgb(52, 91, 124);
+}
+
+.login-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    background-color: rgb(52, 91, 124);
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 0.5rem;
+}
+
+.login-btn:hover {
+    background-color: rgb(40, 70, 95);
+}
+
+.login-error {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    color: rgb(200, 50, 50);
+    text-align: center;
+    padding: 0.75rem;
+    background-color: rgb(255, 240, 240);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+.login-divider {
+    text-align: center;
+    margin: 2rem 0 1.5rem 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    color: rgb(100, 100, 100);
+    position: relative;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: rgb(200, 200, 200);
+}
+
+.login-divider::before {
+    left: 0;
+}
+
+.login-divider::after {
+    right: 0;
+}
+
+.login-switch {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: rgb(60, 60, 60);
+}
+
+.login-switch a {
+    color: rgb(52, 91, 124);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-switch a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive - Login Page */
+@media screen and (max-width: 768px) {
+    .login-box {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    .login-logo {
+        font-size: 36px;
+    }
+    
+    .login-subtitle {
+        font-size: 16px;
+        margin-bottom: 2rem;
+    }
+    
+    .login-form-group input {
+        font-size: 16px;
+    }
+}
