@@ -1,4 +1,8 @@
-/* Base Typography */
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+/* Typography */
 
 h1, h1 a {
     font-family: 'Nunito Sans', sans-serif;
@@ -54,14 +58,16 @@ body {
     flex-direction: column;
 }
 
-/* Header & Navigation */
+/* ========================================
+   HEADER & NAVIGATION
+   ======================================== */
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: rgba(46, 116, 170, 0.667);
-    padding: 0.2rem;
+    padding: 0.5rem;
 }
     
 nav {
@@ -76,7 +82,7 @@ nav a {
     font-weight: lighter;
     color: rgb(1,1,1);
     text-decoration: none;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 0.1rem;
     padding-left: 1rem;
     padding-right: 1rem;
     border: 1px solid rgb(255, 255, 255);
@@ -85,7 +91,17 @@ nav a {
     display: inline-block;
 }
 
-/* Footer */
+nav a:hover {
+    background-color: rgb(240, 240, 240);
+}
+nav a:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
 
 footer {
     display: flex;
@@ -110,7 +126,9 @@ footer {
     display: block;
 }
 
-/* Trip Cards */
+/* ========================================
+   TRIP CARDS
+   ======================================== */
     
 .trips-container {
     display: flex;
@@ -148,6 +166,11 @@ footer {
     display: block;
     cursor: pointer;
     text-decoration: none;
+}
+
+.trip-card a:focus {
+    outline: 3px solid rgb(52, 91, 124);
+    outline-offset: 2px;
 }
     
 .trip-card h1 {
@@ -222,6 +245,16 @@ footer {
     right: 1rem;
 }
 
+.trip-details menu:hover {
+    color: rgb(100, 100, 100);
+}
+
+.trip-details menu:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
 .rating {
     display: flex;
     gap: 0.1rem;
@@ -240,9 +273,14 @@ footer {
     color: rgb(180, 180, 180);
 }
 
+
+/* ========================================
+   TRIP BUTTONS / CTAs
+   ======================================== */
+
 .trip-buttons {
     display: flex;
-    gap: 0;
+    gap: 1;
     margin-top: 1rem;
     align-items: stretch;
 }
@@ -250,11 +288,11 @@ footer {
 .trip-btn {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
-    font-weight: normal;
-    color: rgb(1, 1, 1);
+    font-weight: bold;
+    color: rgb(255, 255, 255);
     text-decoration: none;
     padding: 1.5rem 2rem;
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(52, 91, 124);
     flex: 1;
     text-align: center;
     cursor: pointer;
@@ -265,7 +303,16 @@ footer {
 }
 
 .trip-btn:hover {
-    background-color: rgb(180, 180, 180);
+    background-color: rgb(40, 70, 95);
+}
+
+.trip-btn:focus {
+    outline: 3px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+}
+
+.trip-btn:active {
+    transform: translateY(1px);
 }
 
 .trip-center-brand {
@@ -282,11 +329,9 @@ footer {
     letter-spacing: 0.1em;
 }
 
-
-
-
-
-/* Forms */
+/* ========================================
+   FORMS
+   ======================================== */
 
 .form-container {
     max-width: 1200px;
@@ -339,7 +384,8 @@ footer {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: rgb(100, 100, 100);
+    border-color: rgb(52, 91, 124); /* Accent color */
+    box-shadow: 0 0 0 3px rgba(52, 91, 124, 0.1);
 }
 
 .form-group textarea {
@@ -349,6 +395,11 @@ footer {
 input[type="date"] {
     cursor: pointer;
 }
+
+
+/* ========================================
+   FORM BUTTONS (CTAs)
+   ======================================== */
 
 .form-buttons {
     display: flex;
@@ -361,7 +412,7 @@ input[type="date"] {
     font-size: 16px;
     font-weight: normal;
     color: white;
-    background-color: rgb(100, 100, 100);
+    background-color: rgb(52, 91, 124);
     padding: 0.75rem 2rem;
     border: none;
     border-radius: 25px;
@@ -370,9 +421,20 @@ input[type="date"] {
 }
 
 .submit-btn:hover {
-    background-color: rgb(70, 70, 70);
+    background-color:  rgb(40, 70, 95);
 }
 
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 91, 124, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* SECONDARY CTA */
 .cancel-btn {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
@@ -393,6 +455,13 @@ input[type="date"] {
     background-color: rgba(1, 1, 1, 0.05);
 }
 
+.cancel-btn:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+}
+
+/* Rating Stars */
+
 .rating-input {
     display: flex;
     gap: 0.3rem;
@@ -407,6 +476,12 @@ input[type="date"] {
 
 .star-input:hover {
     transform: scale(1.2);
+}
+
+.star-input:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 .star-input.filled {
@@ -434,7 +509,10 @@ input[type="date"] {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-/* Popup Menus */
+
+/* ========================================
+   POPUP MENUS
+   ======================================== */
 
 .popup-menu {
     position: absolute;
@@ -487,6 +565,12 @@ input[type="date"] {
 }
 
 .popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.popup-option:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: -2px;
     background-color: rgb(240, 240, 240);
 }
 
@@ -554,7 +638,10 @@ input[type="date"] {
     background-color: rgb(240, 240, 240);
 }
 
-/* Journal */
+
+/* ========================================
+   JOURNAL
+   ======================================== */
 
 .journal-full-container {
     margin: 2rem 4rem;
@@ -608,6 +695,12 @@ input[type="date"] {
     color: rgb(100, 100, 100);
 }
 
+.entry-menu:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
 .entry-text {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
@@ -633,201 +726,9 @@ input[type="date"] {
     margin: 4rem 0;
 }
 
-/* Photo Album */
-
-.album-container {
-    margin: 2rem 4rem;
-    padding: 0;
-}
-
-.album-title {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 50px;
-    font-weight: normal;
-    color: rgb(0, 0, 0);
-    padding: 0;
-    margin: 0 0 2rem 0;
-}
-
-.album-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 1px solid rgb(180, 180, 180);
-    background-color: rgb(240, 240, 240);
-}
-
-.album-item {
-    position: relative;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    border: 1px solid rgb(180, 180, 180);
-    background-color: white;
-}
-
-.album-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.upload-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(220, 220, 220);
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.upload-box:hover {
-    background-color: rgb(200, 200, 200);
-}
-
-.upload-box input[type="file"] {
-    display: none;
-}
-
-.upload-icon {
-    font-size: 48px;
-    color: rgb(100, 100, 100);
-    margin-bottom: 1rem;
-}
-
-.upload-text {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 16px;
-    font-weight: normal;
-    color: rgb(100, 100, 100);
-}
-
-.album-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.album-item:hover .album-caption {
-    opacity: 1;
-}
-
-.album-caption h3 {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
-    font-weight: normal;
-    color: white;
-    margin: 0;
-    padding: 0;
-}
-
-.photo-menu {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    padding: 0.5rem;
-    user-select: none;
-}
-
-.photo-menu:hover {
-    color: rgb(200, 200, 200);
-}
-
-.photo-popup {
-    position: absolute;
-    top: 3rem;
-    right: 0.5rem;
-    left: auto;
-    bottom: auto;
-    margin: 0;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    display: none;
-    flex-direction: column;
-    min-width: 150px;
-    z-index: 1000;
-    padding: 0.5rem 0;
-}
-
-/* Mobile Responsive Styles */
-
-@media screen and (max-width: 768px) {
-    /* Trip buttons */
-    .trip-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        padding: 0 1rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .trip-center-brand {
-        display: none;
-    }
-    
-    .trip-btn {
-        font-size: 14px;
-        padding: 0.75rem 1rem;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    body > div {
-        padding-bottom: 1rem;
-    }
-    
-    h2 {
-        font-size: 36px;
-        padding-left: 1rem;
-    }
-    
-    p {
-        font-size: 16px;
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-    
-    .pan {
-        height: 25vh;
-        margin-bottom: 0.5rem;
-    }
-    
-    /* Album responsive */
-    .album-container {
-        margin: 1rem;
-    }
-    
-    .album-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .album-title {
-        font-size: 36px;
-        margin: 0 0 1rem 0;
-    }
-}
-
-@media (hover: none) and (pointer: coarse) {
-    .trip-btn {
-        min-height: 44px;
-    }
-}
-
-
-/* Inline Editing Styles for Journal */
+/* ========================================
+   INLINE EDITING (JOURNAL)
+   ======================================== */
 
 .entry-date-input {
     font-family: 'Nunito Sans', sans-serif;
@@ -889,6 +790,11 @@ input[type="date"] {
     background-color: rgb(40, 70, 95);
 }
 
+.save-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 91, 124, 0.3);
+}
+
 .cancel-edit-btn {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
@@ -906,29 +812,152 @@ input[type="date"] {
     background-color: rgba(1, 1, 1, 0.05);
 }
 
+.cancel-edit-btn:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+}
+
+/* NEW ENTRY BUTTON (CTA) */
+.new-entry-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    color: white !important; /* Override nav styling */
+    text-decoration: none;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid rgb(52, 91, 124) !important;
+    background-color: rgb(52, 91, 124) !important; /* Accent color for prominence */
+    border-radius: 25px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.new-entry-btn:hover {
+    background-color: rgb(40, 70, 95) !important;
+}
+
+.new-entry-btn:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+}
 
 
+/* ========================================
+   PHOTO ALBUM
+   ======================================== */
 
-/* Photo Album Menu - Hover Only */
+.album-container {
+    margin: 2rem 4rem;
+    padding: 0;
+}
+
+.album-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: rgb(240, 240, 240);
+}
 
 .album-item {
     position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: white;
+}
+
+.album-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(220, 220, 220);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-box:hover {
+    background-color: rgb(200, 200, 200);
+}
+
+.upload-box:focus-within {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: rgb(100, 100, 100);
+    margin-bottom: 1rem;
+}
+
+.upload-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+}
+
+.album-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.album-item:hover .album-caption {
+    opacity: 1;
+}
+
+.album-caption h3 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+    margin: 0;
+    padding: 0;
 }
 
 .photo-menu {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    font-size: 28px;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 24px;
     color: white;
     cursor: pointer;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-    z-index: 100;
-    padding: 0.25rem 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    padding: 0.5rem;
     user-select: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    line-height: 1;
+}
+
+.album-item {
+    position: relative;
 }
 
 .album-item:hover .photo-menu {
@@ -977,6 +1006,12 @@ input[type="date"] {
     background-color: rgb(240, 240, 240);
 }
 
+.photo-popup .popup-option:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: -2px;
+    background-color: rgb(240, 240, 240);
+}
+
 .photo-popup .delete-option {
     color: rgb(52, 91, 124);
 }
@@ -985,233 +1020,40 @@ input[type="date"] {
     background-color: rgb(230, 240, 250);
 }
 
-
-
-
-
-/* Mobile Responsive Styles - Enhanced Form Support */
-
-@media screen and (max-width: 768px) {
-    /* Form Container */
-    .form-container {
-        margin: 1rem;
-        padding: 1.5rem 1rem;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-    
-    .form-container h2 {
-        font-size: 28px;
-        margin: 0 0 1.5rem 0;
-        padding: 0;
-    }
-    
-    /* Form Groups */
-    .form-group {
-        margin-bottom: 1.25rem;
-    }
-    
-    .form-group label {
-        font-size: 15px;
-        margin-bottom: 0.5rem;
-        display: block;
-    }
-    
-    /* Form Inputs */
-    .form-group input[type="text"],
-    .form-group input[type="date"],
-    .form-group input[type="file"],
-    .form-group textarea {
-        font-size: 16px; /* Prevents zoom on iOS */
-        padding: 0.75rem;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    .form-group textarea {
-        min-height: 150px;
-        resize: vertical;
-    }
-    
-    /* Date inputs on mobile */
-    input[type="date"] {
-        -webkit-appearance: none;
-        appearance: none;
-        min-height: 44px; /* Touch-friendly size */
-    }
-    
-    /* File upload */
-    .form-group input[type="file"] {
-        font-size: 14px;
-        padding: 0.5rem;
-    }
-    
-    .form-group small {
-        font-size: 12px;
-        display: block;
-        margin-top: 0.5rem;
-        line-height: 1.4;
-    }
-    
-    /* Star Rating - Mobile Friendly */
-    .rating-input {
-        gap: 0.5rem;
-        justify-content: center;
-        padding: 0.5rem 0;
-    }
-    
-    .star-input {
-        font-size: 40px;
-        min-width: 44px;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Character Count */
-    .char-count {
-        font-size: 13px;
-        margin-top: 0.5rem;
-    }
-    
-    /* Form Buttons */
-    .form-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        margin-top: 1.5rem;
-    }
-    
-    .submit-btn,
-    .cancel-btn {
-        width: 100%;
-        padding: 0.875rem 1.5rem;
-        font-size: 15px;
-        min-height: 44px;
-        box-sizing: border-box;
-        text-align: center;
-    }
-    
-    /* Error Messages */
-    .error-message {
-        font-size: 13px;
-        margin-top: 0.5rem;
-    }
-    
-    /* Header Navigation - Mobile */
-    header {
-        padding: 0.5rem;
-        flex-wrap: wrap;
-    }
-    
-    nav {
-        gap: 0.5rem;
-        flex-wrap: wrap;
-        padding: 0.5rem;
-    }
-    
-    nav a {
-        font-size: 14px;
-        padding: 0.5rem 1rem;
-    }
-    
-    /* Image preview on mobile */
-    .form-group img {
-        max-width: 100% !important;
-        height: auto;
-    }
+.photo-menu:hover {
+    color: rgb(200, 200, 200);
 }
 
-/* Extra small devices (phones in portrait) */
-@media screen and (max-width: 480px) {
-    .form-container {
-        margin: 0.5rem;
-        padding: 1rem 0.75rem;
-    }
-    
-    .form-container h2 {
-        font-size: 24px;
-        margin-bottom: 1rem;
-    }
-    
-    .form-group label {
-        font-size: 14px;
-    }
-    
-    .star-input {
-        font-size: 36px;
-        gap: 0.25rem;
-    }
-    
-    .submit-btn,
-    .cancel-btn {
-        font-size: 14px;
-    }
+.photo-menu:focus {
+    opacity: 1;
+    outline: 2px solid white;
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
-/* Ensure touch-friendly sizes on all touch devices */
-@media (hover: none) and (pointer: coarse) {
-    .form-group input,
-    .form-group textarea,
-    .form-group select,
-    .submit-btn,
-    .cancel-btn {
-        min-height: 44px;
-    }
-    
-    .star-input {
-        min-width: 44px;
-        min-height: 44px;
-    }
+.photo-popup {
+    position: absolute;
+    top: 3rem;
+    right: 0.5rem;
+    left: auto;
+    bottom: auto;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+    padding: 0.5rem 0;
 }
 
+/* ========================================
+   LOGIN PAGE
+   ======================================== */
 
-
-/* Album Page Headers */
-
-.album-location-title {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 50px;
-    font-weight: normal;
-    color: rgb(52, 91, 124);
-    padding: 0;
-    margin: 0 0 0.5rem 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.album-subtitle {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 32px;
-    font-weight: 300;
-    color: rgb(0, 0, 0);
-    padding: 0;
-    margin: 0 0 2rem 0;
-}
-
-/* Mobile Responsive for Album Headers */
-@media screen and (max-width: 768px) {
-    .album-location-title {
-        font-size: 36px;
-        margin: 0 0 0.5rem 0;
-    }
-    
-    .album-subtitle {
-        font-size: 24px;
-        margin: 0 0 1.5rem 0;
-    }
-}
-
-
-
-
-
-/* Add these login styles to your existing style.css file */
-
-/* Login Page Styles */
-
-.login-container {
+   .login-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -1333,6 +1175,15 @@ input[type="date"] {
     background-color: rgb(40, 70, 95);
 }
 
+.login-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 91, 124, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(1px);
+}
+
 .login-error {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 14px;
@@ -1388,7 +1239,297 @@ input[type="date"] {
     text-decoration: underline;
 }
 
-/* Mobile Responsive - Login Page */
+.login-switch a:focus {
+    outline: 2px solid rgb(52, 91, 124);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+@media screen and (max-width: 768px) {
+    /* Trip buttons */
+    .trip-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        padding: 0 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .trip-center-brand {
+        display: none;
+    }
+    
+    .trip-btn {
+        font-size: 14px;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    body > div {
+        padding-bottom: 1rem;
+    }
+    
+    h2 {
+        font-size: 36px;
+        padding-left: 1rem;
+    }
+    
+    p {
+        font-size: 16px;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    .pan {
+        height: 25vh;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Album responsive */
+    .album-container {
+        margin: 1rem;
+    }
+    
+    .album-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .album-title {
+        font-size: 36px;
+        margin: 0 0 1rem 0;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .trip-btn {
+        min-height: 44px;
+    }
+}
+
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES (FORMS)
+   ======================================== */
+
+@media screen and (max-width: 768px) {
+    /* Form Container */
+    .form-container {
+        margin: 1rem;
+        padding: 1.5rem 1rem;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .form-container h2 {
+        font-size: 28px;
+        margin: 0 0 1.5rem 0;
+        padding: 0;
+    }
+    
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+    
+    .form-group label {
+        font-size: 15px;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    /* Form Inputs */
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="file"],
+    .form-group textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.75rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    /* Date inputs on mobile */
+    input[type="date"] {
+        -webkit-appearance: none;
+        appearance: none;
+        min-height: 44px; /* Touch-friendly size */
+    }
+    
+    /* File upload */
+    .form-group input[type="file"] {
+        font-size: 14px;
+        padding: 0.5rem;
+    }
+    
+    .form-group small {
+        font-size: 12px;
+        display: block;
+        margin-top: 0.5rem;
+        line-height: 1.4;
+    }
+    
+    /* Star Rating */
+    .rating-input {
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 0.5rem 0;
+    }
+    
+    .star-input {
+        font-size: 40px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Character Count */
+    .char-count {
+        font-size: 13px;
+        margin-top: 0.5rem;
+    }
+    
+    /* Form Buttons */
+    .form-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+    
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+        font-size: 15px;
+        min-height: 44px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    
+    /* Error Messages */
+    .error-message {
+        font-size: 13px;
+        margin-top: 0.5rem;
+    }
+    
+    /* Header Navigation */
+    header {
+        padding: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    nav {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+    
+    nav a {
+        font-size: 14px;
+        padding: 0.5rem 1rem;
+    }
+    
+    /* Image preview on mobile */
+    .form-group img {
+        max-width: 100% !important;
+        height: auto;
+    }
+}
+
+/* Extra small devices (phones in portrait) */
+@media screen and (max-width: 480px) {
+    .form-container {
+        margin: 0.5rem;
+        padding: 1rem 0.75rem;
+    }
+    
+    .form-container h2 {
+        font-size: 24px;
+        margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+        font-size: 14px;
+    }
+    
+    .star-input {
+        font-size: 36px;
+        gap: 0.25rem;
+    }
+    
+    .submit-btn,
+    .cancel-btn {
+        font-size: 14px;
+    }
+}
+
+/* Ensure touch-friendly sizes on all touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .form-group input,
+    .form-group textarea,
+    .form-group select,
+    .submit-btn,
+    .cancel-btn {
+        min-height: 44px;
+    }
+    
+    .star-input {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+
+
+/* Album Page Headers */
+
+.album-location-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(52, 91, 124);
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.album-subtitle {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+/* Mobile Responsive for Album Headers */
+@media screen and (max-width: 768px) {
+    .album-location-title {
+        font-size: 36px;
+        margin: 0 0 0.5rem 0;
+    }
+    
+    .album-subtitle {
+        font-size: 24px;
+        margin: 0 0 1.5rem 0;
+    }
+}
+
+/* Mobile Responsive Login Page */
 @media screen and (max-width: 768px) {
     .login-box {
         padding: 2rem 1.5rem;
@@ -1408,7 +1549,3 @@ input[type="date"] {
         font-size: 16px;
     }
 }
-
-
-
-

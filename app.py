@@ -159,6 +159,10 @@ def index():
         order_clause = 'ORDER BY trip_id DESC'
     elif sort_by == 'location_asc':
         order_clause = 'ORDER BY trip_location COLLATE NOCASE ASC'
+    elif sort_by == 'rating_asc':
+        order_clause = 'ORDER BY rating ASC, trip_id DESC'
+    elif sort_by == 'rating_desc':
+        order_clause = 'ORDER BY rating DESC, trip_id DESC'
     else:
         order_clause = 'ORDER BY trip_id DESC'
     

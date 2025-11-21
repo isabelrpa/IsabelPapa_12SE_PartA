@@ -88,15 +88,3 @@ VALUES
     ('images/sagrada-familia.jpg', 'La Sagrada Familia exterior', 6, '2024-07-06'),
     ('images/northern-lights.jpg', 'Green aurora borealis over Iceland', 7, '2024-09-02'),
     ('images/bali-temple.jpg', 'Balinese temple at sunset', 8, '2024-10-14');
-
--- Seed Spending Log entries
-INSERT INTO SpendingLog (expense_date, expense_category, expense_description, amount, trip_id)
-VALUES
-    ('2024-12-30', 'Food', 'Dinner at Italian restaurant', 85.50, 1),
-    ('2024-12-31', 'Entertainment', 'Broadway show tickets', 250.00, 1),
-    ('2025-01-03', 'Transportation', 'Taxi to Grand Palace', 15.00, 2),
-    ('2025-01-04', 'Food', 'Street food dinner', 12.50, 2),
-    ('2023-12-02', 'Accommodation', 'Hotel Marina Bay', 320.00, 3),
-    ('2024-03-16', 'Food', 'Sushi dinner in Shibuya', 75.00, 4),
-    ('2024-06-11', 'Entertainment', 'Eiffel Tower tickets', 45.00, 5),
-    ('2024-07-06', 'Food', 'Tapas lunch', 35.00, 6);
