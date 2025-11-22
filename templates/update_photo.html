@@ -14,22 +14,34 @@
 
 {% block body %}
 <div class="form-container">
-    <h2>Replace Photo</h2>
+    <h2>Update Photo</h2>
     
     <div style="margin-bottom: 2rem;">
-        <p style="margin-bottom: 1rem;">Current Photo:</p>
+        <p style="margin-bottom: 1rem;"><strong>Current Photo:</strong></p>
         <img src="{{ url_for('static', filename=photo.photo_path) }}" 
-             alt="Current photo" 
-             style="max-width: 400px; border: 1px solid rgb(180, 180, 180);">
+             alt="{{photo.photo_alt}}" 
+             style="max-width: 400px; border: 1px solid rgb(180, 180, 180); margin-bottom: 1rem;">
+        <p style="color: #666;"><strong>Current alt text:</strong> {{photo.photo_alt}}</p>
     </div>
-    <form method="POST" action="/album/update/{{ photo.photo_id }}" enctype="multipart/form-data" class="trip-form">
+    
+    <form method="POST" action="/album/update/{{photo.photo_id}}" enctype="multipart/form-data" class="trip-form">
         <div class="form-group">
-            <label for="photo">Select New Photo:</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required>
+            <label for="photo">Replace Photo (optional):</label>
+            <input type="file" id="photo" name="photo" accept="image/*">
+            <small style="color: #666; font-size: 0.9em;">Leave empty to keep current photo</small>
+        </div>
+
+        <div class="form-group">
+            <label for="photo_alt">Alt Text:</label>
+            <input type="text" id="photo_alt" name="photo_alt" 
+                   value="{{photo.photo_alt}}"
+                   placeholder="Describe the photo (e.g., 'Sunset over the mountains')" 
+                   maxlength="200">
+            <small style="color: #666; font-size: 0.9em;">Update the accessibility description</small>
         </div>
 
         <div class="form-buttons">
-            <button type="submit" class="submit-btn">Replace Photo</button>
+            <button type="submit" class="submit-btn">Update Photo</button>
             <a href="/album/{{photo.trip_id}}" class="cancel-btn">Cancel</a>
         </div>
     </form>

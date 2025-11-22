@@ -70,7 +70,7 @@ def login():
     return render_template('login.html')
 
 
-# REGISTER PAGE
+# REGISTER (LOGIN) PAGE
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -151,7 +151,7 @@ def logout():
 
 
 # ============================================================================
-# TRIPS - CRUD OPERATIONS
+# TRIPS
 # ============================================================================
 
 # READ: HOME PAGE (DISPLAY ALL TRIPS)
@@ -364,7 +364,7 @@ def delete(trip_id):
 
 
 # ============================================================================
-# JOURNAL - CRUD OPERATIONS
+# JOURNAL
 # ============================================================================
 
 # READ: VIEW JOURNAL ENTRIES FOR TRIP
@@ -537,9 +537,8 @@ def delete_journal_entry(entry_id):
     
     return redirect(url_for('journal', trip_id=trip_id))
 
-
 # ============================================================================
-# ALBUM - CRUD OPERATIONS
+# ALBUM
 # ============================================================================
 
 # READ: VIEW PHOTO ALBUM FOR TRIP
@@ -572,51 +571,64 @@ def album(trip_id):
 
 
 # CREATE: UPLOAD PHOTO TO ALBUM
-@app.route('/album/<int:trip_id>/upload', methods=['POST'])
+@app.route('/album/<int:trip_id>/upload', methods=['GET', 'POST'])
 @login_required
 def upload_photo(trip_id):
     # Verify trip ownership
     conn = sqlite3.connect('part_a.db')
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
     trip = cursor.fetchone()
-    conn.close()
     
     if trip is None:
+        conn.close()
         return "Trip not found", 404
     
-    if 'photo' not in request.files:
-        return "No file uploaded", 400
-    
-    file = request.files['photo']
-    
-    if file.filename == '':
-        return "No file selected", 400
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filename = f"{int(time.time())}_{filename}"
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        photo_path = f"uploads/{filename}"
+    if request.method == 'POST':
+        if 'photo' not in request.files:
+            conn.close()
+            return "No file uploaded", 400
         
-        # Get current date
-        from datetime import datetime
-        current_date = datetime.now().strftime('%Y-%m-%d')
+        file = request.files['photo']
         
-        # Insert into Album table
-        conn = sqlite3.connect('part_a.db')
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO Album (photo_path, photo_alt, trip_id, date_added)
-            VALUES (?, ?, ?, ?)
-        ''', (photo_path, 'Uploaded photo', trip_id, current_date))
-        conn.commit()
-        conn.close()
+        if file.filename == '':
+            conn.close()
+            return "No file selected", 400
         
-        return redirect(url_for('album', trip_id=trip_id))
-    else:
-        return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+        if file and allowed_file(file.filename):
+            # Get alt text from form
+            photo_alt = request.form.get('photo_alt', '').strip()
+            if not photo_alt:
+                photo_alt = 'Travel photo'
+            
+            filename = secure_filename(file.filename)
+            filename = f"{int(time.time())}_{filename}"
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            photo_path = f"uploads/{filename}"
+            
+            # Get current date
+            from datetime import datetime
+            current_date = datetime.now().strftime('%Y-%m-%d')
+            
+            # Insert into Album table
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO Album (photo_path, photo_alt, trip_id, date_added)
+                VALUES (?, ?, ?, ?)
+            ''', (photo_path, photo_alt, trip_id, current_date))
+            conn.commit()
+            conn.close()
+            
+            return redirect(url_for('album', trip_id=trip_id))
+        else:
+            conn.close()
+            return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+    
+    # GET request - show upload form
+    conn.close()
+    return render_template('upload_photo.html', trip_id=trip_id, trip=trip)
 
 
 # UPDATE: PHOTO IN ALBUM
@@ -641,40 +653,49 @@ def update_photo(photo_id):
         return "Photo not found", 404
     
     if request.method == 'POST':
-        # Handle photo replacement
-        if 'photo' not in request.files or request.files['photo'].filename == '':
-            conn.close()
-            return "No file selected", 400
+        # Get alt text from form
+        photo_alt = request.form.get('photo_alt', '').strip()
+        if not photo_alt:
+            photo_alt = photo['photo_alt']  # Keep existing if empty
         
-        file = request.files['photo']
-        
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filename = f"{int(time.time())}_{filename}"
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
-            photo_path = f"uploads/{filename}"
+        # Check if photo file was uploaded
+        if 'photo' in request.files and request.files['photo'].filename != '':
+            file = request.files['photo']
             
-            # Get current date
-            from datetime import datetime
-            current_date = datetime.now().strftime('%Y-%m-%d')
-            
-            # Update database
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filename = f"{int(time.time())}_{filename}"
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                photo_path = f"uploads/{filename}"
+                
+                # Get current date
+                from datetime import datetime
+                current_date = datetime.now().strftime('%Y-%m-%d')
+                
+                # Update database with new photo and alt text
+                cursor.execute('''
+                    UPDATE Album 
+                    SET photo_path = ?, photo_alt = ?, date_added = ?
+                    WHERE photo_id = ?
+                ''', (photo_path, photo_alt, current_date, photo_id))
+            else:
+                conn.close()
+                return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+        else:
+            # Only update alt text, keep existing photo
             cursor.execute('''
                 UPDATE Album 
-                SET photo_path = ?, date_added = ?
+                SET photo_alt = ?
                 WHERE photo_id = ?
-            ''', (photo_path, current_date, photo_id))
-            
-            conn.commit()
-            
-            trip_id = photo['trip_id']
-            conn.close()
-            
-            return redirect(url_for('album', trip_id=trip_id))
-        else:
-            conn.close()
-            return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+            ''', (photo_alt, photo_id))
+        
+        conn.commit()
+        
+        trip_id = photo['trip_id']
+        conn.close()
+        
+        return redirect(url_for('album', trip_id=trip_id))
     
     else:
         # GET request
