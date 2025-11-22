@@ -194,15 +194,6 @@ footer {
     visibility: visible;
     opacity: 1;
 }
-    
-.trip-details {
-    height: 70px;
-    padding: 0.5rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-}
 
 .trip-left {
     display: flex;
@@ -219,7 +210,16 @@ footer {
     margin-right: 0rem; 
 }
 
-.trip-details h3 {
+.trip-details {
+    height: 70px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.trip-details h2 {
     padding: 0.25rem 0.25rem;
     margin: 0 0 0.25rem 0;
     font-family: 'Nunito Sans', sans-serif;
@@ -246,11 +246,11 @@ footer {
 }
 
 .trip-details menu:hover {
-    color: rgb(100, 100, 100);
+    color: rgb(34, 64, 90);
 }
 
 .trip-details menu:focus {
-    outline: 2px solid rgb(52, 91, 124);
+    outline: 2px solid rgb(34, 64, 90);
     outline-offset: 2px;
     border-radius: 4px;
 }
@@ -275,7 +275,7 @@ footer {
 
 
 /* ========================================
-   TRIP BUTTONS / CTAs
+   TRIP BUTTONS (CTAs)
    ======================================== */
 
 .trip-buttons {
@@ -704,8 +704,9 @@ input[type="date"] {
 .entry-text {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
-    font-weight: lighter;
-    color: rgb(1, 1, 1);
+    font-weight: normal;
+    font-style: normal;
+    color: rgb(51, 51, 51);
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -748,7 +749,7 @@ input[type="date"] {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: lighter;
-    font-style: italic;
+    font-style: normal;
     color: rgb(1, 1, 1);
     line-height: 1.6;
     letter-spacing: 0.3px;
@@ -969,18 +970,6 @@ input[type="date"] {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
 }
 
-.photo-popup {
-    position: fixed;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    min-width: 120px;
-    max-width: 140px;
-    z-index: 10000;
-    padding: 0.5rem 0;
-}
-
 .photo-popup h1 {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 11px;
@@ -1116,7 +1105,7 @@ input[type="date"] {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 18px;
     font-weight: 300;
-    font-style: italic;
+    font-style: normal;
     color: rgb(60, 60, 60);
     text-align: center;
     margin-bottom: 2.5rem;

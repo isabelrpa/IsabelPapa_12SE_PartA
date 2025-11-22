@@ -6,8 +6,12 @@ import os
 import time
 from functools import wraps
 
+# ============================================================================
+# APP SETUP
+# ============================================================================
+
 app = Flask(__name__)
-app.secret_key='ISA12_SE'
+app.secret_key = 'ISA12_SE'
 
 # Configuration
 UPLOAD_FOLDER = 'static/uploads'
@@ -18,8 +22,14 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+
+# ============================================================================
+# HELPER FUNCTIONS
+# ============================================================================
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # Login required decorator
 def login_required(f):
@@ -30,7 +40,10 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
+# ============================================================================
 # AUTHENTICATION ROUTES
+# ============================================================================
 
 # LOGIN PAGE
 @app.route('/login', methods=['GET', 'POST'])
@@ -55,6 +68,7 @@ def login():
             return render_template('login.html', error='Invalid username or password')
     
     return render_template('login.html')
+
 
 # REGISTER PAGE
 @app.route('/register', methods=['GET', 'POST'])
@@ -128,15 +142,19 @@ def register():
     
     return render_template('login.html', show_register=True)
 
+
 # LOGOUT
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('login'))
 
-# ROUTES
 
-# HOME PAGE (DISPLAY ALL TRIPS)
+# ============================================================================
+# TRIPS - CRUD OPERATIONS
+# ============================================================================
+
+# READ: HOME PAGE (DISPLAY ALL TRIPS)
 @app.route('/')
 @login_required
 def index():
@@ -175,8 +193,7 @@ def index():
     return render_template('index.html', trips=all_trips)
 
 
-
-# VIEW INDIVIDUAL TRIP DETAILS
+# READ: VIEW INDIVIDUAL TRIP DETAILS
 @app.route('/trip/<int:trip_id>')
 @login_required
 def trip(trip_id):
@@ -194,8 +211,7 @@ def trip(trip_id):
     return render_template('trip.html', trip=trip)
 
 
-
-# CREATE (NEW) TRIP
+# CREATE: NEW TRIP
 @app.route('/create', methods=['POST', 'GET'])
 @login_required
 def create():
@@ -240,8 +256,7 @@ def create():
     return render_template('form.html')
 
 
-
-# UPDATE (EXISTING) TRIP
+# UPDATE: EXISTING TRIP
 @app.route('/update/<int:trip_id>', methods=['POST','GET'])
 @login_required
 def update(trip_id):
@@ -336,8 +351,7 @@ def update(trip_id):
         return render_template('update.html', trip=trip)
 
 
-
-# DELETE TRIP
+# DELETE: TRIP
 @app.route('/delete/<int:trip_id>')
 @login_required
 def delete(trip_id):
@@ -349,8 +363,11 @@ def delete(trip_id):
     return redirect(url_for('index'))
 
 
+# ============================================================================
+# JOURNAL - CRUD OPERATIONS
+# ============================================================================
 
-# VIEW JOURNAL ENTRIES FOR TRIP
+# READ: VIEW JOURNAL ENTRIES FOR TRIP
 @app.route('/journal/<int:trip_id>', methods=['GET', 'POST'])
 @login_required
 def journal(trip_id):
@@ -401,9 +418,7 @@ def journal(trip_id):
     return render_template('journal.html', entries=entries, trip=trip, trip_id=trip_id)
 
 
-
-
-# CREATE (NEW) JOURNAL ENTRY
+# CREATE: NEW JOURNAL ENTRY
 @app.route('/journal/add/<int:trip_id>', methods=['GET', 'POST'])
 @login_required
 def new_entry(trip_id):
@@ -438,8 +453,7 @@ def new_entry(trip_id):
     return render_template('new_entry.html', trip_id=trip_id)
 
 
-
-# UPDATE (EXISTING) JOURNAL ENTRY
+# UPDATE: EXISTING JOURNAL ENTRY
 @app.route('/journal/update/<int:entry_id>', methods=['GET', 'POST'])
 @login_required
 def update_journal_entry(entry_id):
@@ -494,8 +508,7 @@ def update_journal_entry(entry_id):
         return render_template('update_journal_entry.html', entry=entry)
 
 
-
-# DELETE JOURNAL ENTRY
+# DELETE: JOURNAL ENTRY
 @app.route('/journal/delete/<int:entry_id>')
 @login_required
 def delete_journal_entry(entry_id):
@@ -525,8 +538,11 @@ def delete_journal_entry(entry_id):
     return redirect(url_for('journal', trip_id=trip_id))
 
 
+# ============================================================================
+# ALBUM - CRUD OPERATIONS
+# ============================================================================
 
-# VIEW PHOTO ALBUM FOR TRIP
+# READ: VIEW PHOTO ALBUM FOR TRIP
 @app.route('/album/<int:trip_id>')
 @login_required
 def album(trip_id):
@@ -555,7 +571,7 @@ def album(trip_id):
     return render_template('album.html', trip=trip, trip_id=trip_id, photos=photos)
 
 
-# UPLOAD PHOTO TO ALBUM
+# CREATE: UPLOAD PHOTO TO ALBUM
 @app.route('/album/<int:trip_id>/upload', methods=['POST'])
 @login_required
 def upload_photo(trip_id):
@@ -603,7 +619,7 @@ def upload_photo(trip_id):
         return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
 
 
-# UPDATE PHOTO IN ALBUM
+# UPDATE: PHOTO IN ALBUM
 @app.route('/album/update/<int:photo_id>', methods=['GET', 'POST'])
 @login_required
 def update_photo(photo_id):
@@ -667,7 +683,7 @@ def update_photo(photo_id):
         return render_template('update_photo.html', photo=photo)
 
 
-# DELETE PHOTO FROM ALBUM
+# DELETE: PHOTO FROM ALBUM
 @app.route('/album/delete/<int:photo_id>')
 @login_required
 def delete_photo(photo_id):
@@ -696,23 +712,10 @@ def delete_photo(photo_id):
     
     return redirect(url_for('album', trip_id=trip_id))
 
-# VIEW SPENDING PAGE FOR TRIP
-@app.route('/spending/<int:trip_id>')
-@login_required
-def spending(trip_id):
-    # Get trip details and verify ownership
-    conn = sqlite3.connect('part_a.db')
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    
-    cursor.execute('SELECT * FROM Trips WHERE trip_id = ? AND user_id = ?', (trip_id, session['user_id']))
-    trip = cursor.fetchone()
-    conn.close()
-    
-    if trip is None:
-        return "Trip not found", 404
-    
-    return render_template('spending.html', trip=trip, trip_id=trip_id)
+
+# ============================================================================
+# RUN APP
+# ============================================================================
 
 if __name__ == '__main__':
     app.run(debug=True)
