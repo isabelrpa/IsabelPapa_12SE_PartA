@@ -95,7 +95,7 @@ nav a:hover {
     background-color: rgb(240, 240, 240);
 }
 nav a:focus {
-    outline: 2px solid rgb(52, 91, 124);
+    outline: 2px solid rgba(46, 116, 170, 0.667);
     outline-offset: 2px;
 }
 
@@ -861,6 +861,26 @@ input[type="date"] {
     margin: 0 0 2rem 0;
 }
 
+.album-location-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(52, 91, 124);
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.album-subtitle {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
 .album-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1479,30 +1499,6 @@ input[type="date"] {
         min-width: 44px;
         min-height: 44px;
     }
-}
-
-
-
-/* Album Page Headers */
-
-.album-location-title {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 50px;
-    font-weight: normal;
-    color: rgb(52, 91, 124);
-    padding: 0;
-    margin: 0 0 0.5rem 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.album-subtitle {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 32px;
-    font-weight: 300;
-    color: rgb(0, 0, 0);
-    padding: 0;
-    margin: 0 0 2rem 0;
 }
 
 /* Mobile Responsive for Album Headers */

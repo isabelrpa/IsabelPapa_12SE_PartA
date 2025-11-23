@@ -1,5 +1,4 @@
 -- Drop existing tables
-DROP TABLE IF EXISTS SpendingLog;
 DROP TABLE IF EXISTS Album;
 DROP TABLE IF EXISTS Journal;
 DROP TABLE IF EXISTS Trips;
@@ -34,18 +33,7 @@ CREATE TABLE IF NOT EXISTS Album (
     FOREIGN KEY(trip_id) REFERENCES Trips(trip_id) ON DELETE CASCADE
 );
 
--- Spending Log table
-CREATE TABLE IF NOT EXISTS SpendingLog (
-    expense_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    expense_date TEXT NOT NULL,
-    expense_category TEXT NOT NULL,
-    expense_description TEXT,
-    amount REAL NOT NULL,
-    trip_id INTEGER NOT NULL,
-    FOREIGN KEY(trip_id) REFERENCES Trips(trip_id) ON DELETE CASCADE
-);
-
--- Seed Trips data (10+ items)
+-- Seed Trips data
 INSERT INTO Trips (trip_location, trip_start, trip_end, trip_image, trip_description, rating)
 VALUES
     ('New York', '2024-12-29', '2025-01-06', 'images/newyork.jpg', 'Winter trip to the Big Apple', 5),
@@ -74,17 +62,3 @@ VALUES
     ('2024-07-06', 'Visited La Sagrada Familia. Gaudi was a genius. Still under construction after 140 years!', 6),
     ('2024-09-02', 'Saw the Northern Lights tonight! Dancing green curtains across the sky. Speechless.', 7),
     ('2024-10-13', 'Temple hopping in Ubud. The rice terraces are stunning.', 8);
-
--- Seed Album photos
-INSERT INTO Album (photo_path, photo_alt, trip_id, date_added)
-VALUES
-    ('images/statue-liberty.jpg', 'Statue of Liberty at sunset', 1, '2024-12-31'),
-    ('images/times-square-night.jpg', 'Times Square lights at night', 1, '2024-12-30'),
-    ('images/thai-temple.jpg', 'Ornate Thai temple with gold details', 2, '2025-01-04'),
-    ('images/thai-beach.jpg', 'Crystal clear beach in Phuket', 2, '2025-01-06'),
-    ('images/merlion.jpg', 'Merlion statue at Marina Bay', 3, '2023-12-03'),
-    ('images/cherry-blossoms.jpg', 'Cherry blossom trees in full bloom', 4, '2024-03-17'),
-    ('images/eiffel-tower.jpg', 'Eiffel Tower from Trocadero', 5, '2024-06-12'),
-    ('images/sagrada-familia.jpg', 'La Sagrada Familia exterior', 6, '2024-07-06'),
-    ('images/northern-lights.jpg', 'Green aurora borealis over Iceland', 7, '2024-09-02'),
-    ('images/bali-temple.jpg', 'Balinese temple at sunset', 8, '2024-10-14');
