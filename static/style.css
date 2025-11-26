@@ -7,8 +7,8 @@
 h1, h1 a {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 20px;
-    font-weight: lighter;
-    color: rgb(1,1,1);
+    font-weight: bold;
+    color: white;
     padding: 0;
     padding-left: 1rem;
     border: none;
@@ -40,9 +40,21 @@ h3 {
 p {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 18px;
-    font-weight: 300;
+    font-weight: bold;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+    margin-left: 2rem; /*adjusted to surpass div wrapper*/
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    max-width: 1200px;
+}
+
+p.footer {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
     font-style: italic;
-    color: rgb(60, 60, 60);
+    color: rgb(255, 255, 255);
     margin-left: 1rem;
     line-height: 1.6;
     letter-spacing: 0.3px;
@@ -66,7 +78,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(46, 116, 170, 0.667);
+    background: linear-gradient(135deg, #1a599d 0%, #77ade3 100%);
     padding: 0.5rem;
 }
     
@@ -79,7 +91,7 @@ nav {
 nav a {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 15px;
-    font-weight: lighter;
+    font-weight: normal;
     color: rgb(1,1,1);
     text-decoration: none;
     padding: 0.5rem 0.1rem;
@@ -89,14 +101,23 @@ nav a {
     background-color: rgb(255, 255, 255);
     border-radius: 25px;
     display: inline-block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 nav a:hover {
     background-color: rgb(240, 240, 240);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 nav a:focus {
-    outline: 2px solid rgba(46, 116, 170, 0.667);
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(110, 142, 251, 0.3);
+    transform: translateY(-3px);
+}
+
+nav a:active {
+    transform: translateY(-1px);
 }
 
 /* ========================================
@@ -106,7 +127,7 @@ nav a:focus {
 footer {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(46, 116, 170, 0.667);
+    background: linear-gradient(135deg, #1a599d 0%, #77ade3 100%);
     text-align: center;
     padding: 0.001rem;
     margin-top: auto;
@@ -134,16 +155,32 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    padding: 2rem 2rem;
-    justify-content: center;
+    padding: 5rem;
+    justify-content: flex-start;
 }
 
 .trip-card {
     width: 420px;
+    flex-shrink: 0;
     background-color: rgb(200, 200, 200);
     margin: 0;
     cursor: pointer;
     position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trip-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(52, 91, 124, 0.2);
+}
+
+.trip-card a:focus {
+    outline: none;
+}
+
+.trip-card:has(a:focus) {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(52, 91, 124, 0.3), 0 0 0 4px rgba(110, 142, 251, 0.2);
 }
 
 .trip-img {
@@ -167,18 +204,13 @@ footer {
     cursor: pointer;
     text-decoration: none;
 }
-
-.trip-card a:focus {
-    outline: 3px solid rgb(52, 91, 124);
-    outline-offset: 2px;
-}
     
 .trip-card h1 {
     padding: 0;
     margin: 0.2rem 0 0.2rem 0;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 30px;
-    font-weight: lighter;
+    font-weight: normal;
     visibility: visible;
     color: rgb(52, 91, 124);
     text-transform: uppercase;
@@ -189,7 +221,7 @@ footer {
     margin: 0.2rem 0;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 12px;
-    font-weight: lighter;
+    font-weight: normal;
     color: rgb(1,1,1);
     visibility: visible;
     opacity: 1;
@@ -274,6 +306,45 @@ footer {
 }
 
 
+/* Conditional (No Existing Trips) */   
+
+.no-trips-message {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(100, 100, 100);
+    text-align: center;
+    padding: 4rem 3rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: rgb(240, 240, 240);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.no-trips-message a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: rgb(52, 91, 124);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 28px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                color 0.4s ease;
+}
+
+.no-trips-message a:hover {
+    transform: scale(1.1);
+    color: rgb(26, 89, 157);
+}
+
+.no-trips-message a:focus {
+    outline: none;
+}
+
 /* ========================================
    TRIP BUTTONS (CTAs)
    ======================================== */
@@ -292,7 +363,7 @@ footer {
     color: rgb(255, 255, 255);
     text-decoration: none;
     padding: 1.5rem 2rem;
-    background-color: rgb(52, 91, 124);
+    background: rgb(52, 91, 124);
     flex: 1;
     text-align: center;
     cursor: pointer;
@@ -300,19 +371,39 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.trip-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+    transition: left 0.5s ease;
 }
 
 .trip-btn:hover {
-    background-color: rgb(40, 70, 95);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(26, 89, 157, 0.3);
+}
+
+.trip-btn:hover::before {
+    left: 100%;
 }
 
 .trip-btn:focus {
-    outline: 3px solid rgb(52, 91, 124);
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: 0 8px 16px rgba(26, 89, 157, 0.3), 0 0 0 4px rgba(110, 142, 251, 0.3);
+    transform: translateY(-4px);
 }
 
 .trip-btn:active {
-    transform: translateY(1px);
+    transform: translateY(-2px);
 }
 
 .trip-center-brand {
@@ -353,13 +444,13 @@ footer {
 .trip-form {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1.5rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .form-group label {
@@ -396,6 +487,15 @@ input[type="date"] {
     cursor: pointer;
 }
 
+.form-group small {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    font-style: normal;
+    margin-top: 0.25rem;
+    line-height: 1.4;
+}
 
 /* ========================================
    FORM BUTTONS (CTAs)
@@ -418,6 +518,7 @@ input[type="date"] {
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 1rem;
 }
 
 .submit-btn:hover {
@@ -706,7 +807,7 @@ input[type="date"] {
     font-size: 16px;
     font-weight: normal;
     font-style: normal;
-    color: rgb(51, 51, 51);
+    color: rgb(0, 0, 0);
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -721,7 +822,7 @@ input[type="date"] {
 .no-entries {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
-    font-weight: lighter;
+    font-weight: normal;
     color: rgb(100, 100, 100);
     text-align: center;
     margin: 4rem 0;
@@ -748,7 +849,7 @@ input[type="date"] {
     min-height: 200px;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
-    font-weight: lighter;
+    font-weight: normal;
     font-style: normal;
     color: rgb(1, 1, 1);
     line-height: 1.6;
@@ -822,7 +923,7 @@ input[type="date"] {
 .new-entry-btn {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 15px;
-    font-weight: lighter;
+    font-weight: normal;
     color: white !important; /* Override nav styling */
     text-decoration: none;
     padding: 0.5rem 1rem !important;
@@ -875,7 +976,7 @@ input[type="date"] {
 .album-subtitle {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 32px;
-    font-weight: 300;
+    font-weight: normal;
     color: rgb(0, 0, 0);
     padding: 0;
     margin: 0 0 2rem 0;
