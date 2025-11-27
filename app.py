@@ -624,7 +624,10 @@ def upload_photo(trip_id):
             return redirect(url_for('album', trip_id=trip_id))
         else:
             conn.close()
-            return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+            return render_template('upload_photo.html', 
+                                 trip_id=trip_id, 
+                                 trip=trip, 
+                                 error='Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP')
     
     # GET request - show upload form
     conn.close()
@@ -681,7 +684,9 @@ def update_photo(photo_id):
                 ''', (photo_path, photo_alt, current_date, photo_id))
             else:
                 conn.close()
-                return "Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP", 400
+                return render_template('update_photo.html', 
+                                     photo=photo, 
+                                     error='Invalid file type. Please upload PNG, JPG, JPEG, GIF, or WEBP')
         else:
             # Only update alt text, keep existing photo
             cursor.execute('''

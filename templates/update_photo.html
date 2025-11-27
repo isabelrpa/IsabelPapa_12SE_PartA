@@ -15,6 +15,11 @@
 {% block body %}
 <div class="form-container">
     <h2>Update Photo</h2>
+{% if error %}
+<div class="login-error">
+    {{ error }}
+</div>
+{% endif %}
     
     <div class="current-photo-section">
         <h3 class="current-photo-label">Current Photo:</h3>
