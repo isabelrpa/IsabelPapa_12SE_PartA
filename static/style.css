@@ -40,13 +40,13 @@ h3 {
 p {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: normal;
     font-style: normal;
     color: rgb(0, 0, 0);
-    margin-left: 2rem; /*adjusted to surpass div wrapper*/
+    margin-left: 2rem;
+    margin-right: 2rem;
     line-height: 1.6;
     letter-spacing: 0.3px;
-    max-width: 1200px;
 }
 
 p.footer {
@@ -352,7 +352,7 @@ footer {
     color: rgb(255, 255, 255);
     text-decoration: none;
     padding: 1.5rem 2rem;
-    background: rgb(52, 91, 124);
+    background: rgb(33, 90, 139);
     flex: 1;
     text-align: center;
     cursor: pointer;
