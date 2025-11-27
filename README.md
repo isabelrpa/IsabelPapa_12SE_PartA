@@ -1,4 +1,5 @@
-# TRIPTROVE - Travel Journal PWA Progressive Web Application
+# TRIPTROVE
+# Travel Journal PWA Progressive Web Application
 
 A comprehensive web application for tracking and documenting your travel experiences, complete with trip management, journal entries, and photo albums.
 
