@@ -807,14 +807,33 @@ input[type="date"] {
 
 .entry-date-input {
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 20px;
-    font-weight: normal;
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 4px;
-    padding: 0.5rem;
-    background-color: white;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(52, 91, 124);
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background-color: transparent;
     margin: 0;
+    transition: color 0.3s ease;
+}
+
+.entry-date-input:hover {
+    color: rgb(26, 89, 157);
+}
+
+.entry-date-input:focus {
+    outline: none;
+    color: rgb(26, 89, 157);
+}
+
+.entry-date {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
 }
 
 .entry-text-input {
@@ -827,19 +846,24 @@ input[type="date"] {
     color: rgb(1, 1, 1);
     line-height: 1.6;
     letter-spacing: 0.3px;
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 4px;
-    padding: 0;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
     margin: 0;
     resize: vertical;
     box-sizing: border-box;
-    background-color: transparent;
+    background-color: rgba(52, 91, 124, 0.06);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.entry-text-input:hover {
+    background-color: rgba(52, 91, 124, 0.09);
 }
 
 .entry-text-input:focus {
     outline: none;
-    border-color: rgb(52, 91, 124);
-    background-color: rgba(52, 91, 124, 0.02);
+    background-color: rgba(52, 91, 124, 0.12);
+    box-shadow: 0 4px 12px rgba(52, 91, 124, 0.15);
 }
 
 .edit-buttons {
