@@ -20,14 +20,15 @@
         <div class="form-group">
             <label for="photo">Select Photo:</label>
             <input type="file" id="photo" name="photo" accept="image/*" required>
+            <small style="color: #666; font-size: 0.9em;">Must be less than 16MB</small>
         </div>
 
         <div class="form-group">
-            <label for="photo_alt">Alt Text (for accessibility):</label>
+            <label for="photo_alt">Alt Text:</label>
             <input type="text" id="photo_alt" name="photo_alt" 
-                   placeholder="Describe the photo (e.g., 'Sunset over the mountains')" 
+                   placeholder="Describe the photo (e.g. 'Sunset over the mountains')" 
                    maxlength="200">
-            <small style="color: #666; font-size: 0.9em;">Optional - helps screen readers describe the image</small>
+            <small style="color: #666; font-size: 0.9em;">Optional (For Screen Readers)</small>
         </div>
 
         <div class="form-buttons">

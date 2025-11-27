@@ -16,28 +16,27 @@
 <div class="form-container">
     <h2>Update Photo</h2>
     
-    <div style="margin-bottom: 2rem;">
-        <p style="margin-bottom: 1rem;"><strong>Current Photo:</strong></p>
+    <div class="current-photo-section">
+        <h3 class="current-photo-label">Current Photo:</h3>
         <img src="{{ url_for('static', filename=photo.photo_path) }}" 
              alt="{{photo.photo_alt}}" 
-             style="max-width: 400px; border: 1px solid rgb(180, 180, 180); margin-bottom: 1rem;">
-        <p style="color: #666;"><strong>Current alt text:</strong> {{photo.photo_alt}}</p>
+             class="current-photo-preview">
+        <p class="current-alt-text"><span class="alt-label">Current Alt Text:</span> {{photo.photo_alt}}</p>
     </div>
     
     <form method="POST" action="/album/update/{{photo.photo_id}}" enctype="multipart/form-data" class="trip-form">
         <div class="form-group">
-            <label for="photo">Replace Photo (optional):</label>
+            <label for="photo">Replace Photo (OPTIONAL):</label>
             <input type="file" id="photo" name="photo" accept="image/*">
-            <small style="color: #666; font-size: 0.9em;">Leave empty to keep current photo</small>
+            <small>Leave empty to keep current photo</small>
         </div>
 
         <div class="form-group">
             <label for="photo_alt">Alt Text:</label>
             <input type="text" id="photo_alt" name="photo_alt" 
                    value="{{photo.photo_alt}}"
-                   placeholder="Describe the photo (e.g., 'Sunset over the mountains')" 
+                   placeholder="Describe the photo (e.g. 'Sunset over the mountains')" 
                    maxlength="200">
-            <small style="color: #666; font-size: 0.9em;">Update the accessibility description</small>
         </div>
 
         <div class="form-buttons">

@@ -280,12 +280,6 @@ footer {
     color: rgb(34, 64, 90);
 }
 
-.trip-details menu:focus {
-    outline: 2px solid rgb(34, 64, 90);
-    outline-offset: 2px;
-    border-radius: 4px;
-}
-
 .rating {
     display: flex;
     gap: 0.1rem;
@@ -513,7 +507,6 @@ input[type="date"] {
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 1rem;
 }
 
 .submit-btn:hover {
@@ -529,31 +522,34 @@ input[type="date"] {
     transform: translateY(1px);
 }
 
-
 /* SECONDARY CTA */
-.cancel-btn {
+.cancel-btn,
+.cancel-edit-btn {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: normal;
     color: rgb(1, 1, 1);
     background-color: transparent;
-    padding: 0.75rem 2rem;
+    padding: 0.5rem 1.5rem;
     border: 1px solid rgb(1, 1, 1);
     border-radius: 25px;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover,
+.cancel-edit-btn:hover {
     background-color: rgba(1, 1, 1, 0.05);
 }
 
-.cancel-btn:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
+.cancel-btn:active,
+.cancel-edit-btn:active {
+    transform: translateY(1px);
 }
 
 /* Rating Stars */
@@ -572,12 +568,6 @@ input[type="date"] {
 
 .star-input:hover {
     transform: scale(1.2);
-}
-
-.star-input:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
-    border-radius: 4px;
 }
 
 .star-input.filled {
@@ -661,12 +651,6 @@ input[type="date"] {
 }
 
 .popup-option:hover {
-    background-color: rgb(240, 240, 240);
-}
-
-.popup-option:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: -2px;
     background-color: rgb(240, 240, 240);
 }
 
@@ -791,12 +775,6 @@ input[type="date"] {
     color: rgb(100, 100, 100);
 }
 
-.entry-menu:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
-    border-radius: 4px;
-}
-
 .entry-text {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
@@ -887,31 +865,8 @@ input[type="date"] {
     background-color: rgb(40, 70, 95);
 }
 
-.save-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 91, 124, 0.3);
-}
-
-.cancel-edit-btn {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 16px;
-    font-weight: normal;
-    color: rgb(1, 1, 1);
-    background-color: transparent;
-    padding: 0.5rem 1.5rem;
-    border: 1px solid rgb(1, 1, 1);
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.cancel-edit-btn:hover {
-    background-color: rgba(1, 1, 1, 0.05);
-}
-
-.cancel-edit-btn:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
+.save-btn:active {
+    transform: translateY(1px);
 }
 
 /* NEW ENTRY BUTTON (CTA) */
@@ -931,11 +886,6 @@ input[type="date"] {
 
 .new-entry-btn:hover {
     background-color: rgb(40, 70, 95) !important;
-}
-
-.new-entry-btn:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
 }
 
 
@@ -1012,11 +962,6 @@ input[type="date"] {
 
 .upload-box:hover {
     background-color: rgb(200, 200, 200);
-}
-
-.upload-box:focus-within {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
 }
 
 .upload-box input[type="file"] {
@@ -1108,12 +1053,6 @@ input[type="date"] {
 }
 
 .photo-popup .popup-option:hover {
-    background-color: rgb(240, 240, 240);
-}
-
-.photo-popup .popup-option:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: -2px;
     background-color: rgb(240, 240, 240);
 }
 
@@ -1344,12 +1283,54 @@ input[type="date"] {
     text-decoration: underline;
 }
 
-.login-switch a:focus {
-    outline: 2px solid rgb(52, 91, 124);
-    outline-offset: 2px;
-    border-radius: 2px;
+/* ========================================
+   PHOTO UPDATE FORM
+   ======================================== */
+
+.current-photo-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgb(200, 200, 200);
 }
 
+.current-photo-label {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    padding: 0;
+    margin: 0 0 1rem 0;
+    border-radius: 0;
+    display: block;
+}
+
+.current-photo-preview {
+    max-width: 300px;
+    width: auto;
+    height: auto;
+    max-height: 250px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.current-alt-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    color: rgb(100, 100, 100);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+
+.alt-label {
+    font-weight: 600;
+    color: rgb(60, 60, 60);
+}
 
 /* ========================================
    MOBILE RESPONSIVE STYLES
@@ -1553,6 +1534,24 @@ input[type="date"] {
         height: auto;
     }
 }
+
+    /* Photo Update Form */
+    .current-photo-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .current-photo-label {
+        font-size: 16px;
+    }
+    
+    .current-photo-preview {
+        max-width: 100%;
+    }
+    
+    .current-alt-text {
+        font-size: 13px;
+    }
 
 /* Extra small devices (phones in portrait) */
 @media screen and (max-width: 480px) {
