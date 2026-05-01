@@ -1,0 +1,203 @@
+/* ========================================
+   PHOTO ALBUM
+   ======================================== */
+
+.album-container {
+    margin: 2rem 4rem;
+    padding: 0;
+}
+
+.album-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.album-location-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(52, 91, 124);
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.album-subtitle {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: rgb(240, 240, 240);
+}
+
+.album-item {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: white;
+}
+
+.album-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(220, 220, 220);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-box:hover {
+    background-color: rgb(200, 200, 200);
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: rgb(100, 100, 100);
+    margin-bottom: 1rem;
+}
+
+.upload-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+}
+
+.album-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.album-item:hover .album-caption {
+    opacity: 1;
+}
+
+.album-caption h3 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.photo-menu {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    padding: 0.5rem;
+    user-select: none;
+}
+
+.album-item {
+    position: relative;
+}
+
+.album-item:hover .photo-menu {
+    opacity: 1;
+}
+
+.photo-menu:hover {
+    color: rgb(220, 220, 220);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+}
+
+.photo-popup h1 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    padding: 0.5rem 1rem 0.25rem 1rem;
+    margin: 0;
+    letter-spacing: 0.05em;
+}
+
+.photo-popup .popup-option {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: rgb(1, 1, 1);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.photo-popup .popup-option:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.photo-popup .delete-option {
+    color: rgb(52, 91, 124);
+}
+
+.photo-popup .delete-option:hover {
+    background-color: rgb(230, 240, 250);
+}
+
+.photo-menu:hover {
+    color: rgb(200, 200, 200);
+}
+
+.photo-menu:focus {
+    opacity: 1;
+    outline: 2px solid white;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.photo-popup {
+    position: absolute;
+    top: 3rem;
+    right: 0.5rem;
+    left: auto;
+    bottom: auto;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}

@@ -1,0 +1,49 @@
+/* ========================================
+   HEADER & NAVIGATION
+   ======================================== */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #1a599d 0%, #77ade3 100%);
+    padding: 0.5rem;
+}
+    
+nav {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+}
+    
+nav a {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    color: rgb(1,1,1);
+    text-decoration: none;
+    padding: 0.5rem 0.1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    display: inline-block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgb(240, 240, 240);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav a:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(110, 142, 251, 0.3);
+    transform: translateY(-3px);
+}
+
+nav a:active {
+    transform: translateY(-1px);
+}

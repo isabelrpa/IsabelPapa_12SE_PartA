@@ -4,7 +4,22 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   <!-- Base styles (must be first) -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+   <!-- Layout components -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+   <!-- Page-specific components -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/trip-cards.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/trip-buttons.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/popups.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/journal.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/photo-update.css') }}">
+   <!-- Responsive styles (must be last) -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">

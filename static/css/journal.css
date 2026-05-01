@@ -1,0 +1,192 @@
+/* ========================================
+   JOURNAL
+   ======================================== */
+
+.journal-full-container {
+    margin: 2rem 4rem;
+    padding: 2rem 0;
+    min-height: 70vh;
+    position: relative;
+}
+
+.journal-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    padding: 0;
+    margin: 0 0 3rem 0;
+}
+
+.journal-entries-full {
+    margin-top: 2rem;
+}
+
+.journal-entry {
+    margin-bottom: 2rem;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.entry-date {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+}
+
+.entry-menu {
+    font-size: 18px;
+    color: rgb(147, 147, 147);
+    cursor: pointer;
+    letter-spacing: 0.2rem;
+    user-select: none;
+}
+
+.entry-menu:hover {
+    color: rgb(100, 100, 100);
+}
+
+.entry-text {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.entry-divider {
+    border: none;
+    border-top: 1px solid rgb(180, 180, 180);
+    margin: 2rem 0;
+}
+
+.no-entries {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(100, 100, 100);
+    text-align: center;
+    margin: 4rem 0;
+}
+
+/* ========================================
+   INLINE EDITING (JOURNAL)
+   ======================================== */
+
+.entry-date-input {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(52, 91, 124);
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background-color: transparent;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.entry-date-input:hover {
+    color: rgb(26, 89, 157);
+}
+
+.entry-date-input:focus {
+    outline: none;
+    color: rgb(26, 89, 157);
+}
+
+.entry-date {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+}
+
+.entry-text-input {
+    width: 100%;
+    min-height: 200px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    color: rgb(1, 1, 1);
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0;
+    resize: vertical;
+    box-sizing: border-box;
+    background-color: rgba(52, 91, 124, 0.06);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.entry-text-input:hover {
+    background-color: rgba(52, 91, 124, 0.09);
+}
+
+.entry-text-input:focus {
+    outline: none;
+    background-color: rgba(52, 91, 124, 0.12);
+    box-shadow: 0 4px 12px rgba(52, 91, 124, 0.15);
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.save-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    background-color: rgb(52, 91, 124);
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    background-color: rgb(40, 70, 95);
+}
+
+.save-btn:active {
+    transform: translateY(1px);
+}
+
+/* NEW ENTRY BUTTON (CTA) */
+.new-entry-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    color: white !important; /* Override nav styling */
+    text-decoration: none;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid rgb(52, 91, 124) !important;
+    background-color: rgb(52, 91, 124) !important; /* Accent color for prominence */
+    border-radius: 25px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.new-entry-btn:hover {
+    background-color: rgb(40, 70, 95) !important;
+}
